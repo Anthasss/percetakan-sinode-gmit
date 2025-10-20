@@ -1,0 +1,24 @@
+{
+  "navItems": [
+    {
+      "id": 1,
+      "label": "Dashboard",
+      "path": "/"
+    },
+    {
+      "id": 2,
+      "label": "Orders",
+      "path": "/orders"
+    },
+    {
+      "id": 3,
+      "label": "Products",
+      "path": "/products"
+    },
+    {
+      "id": 4,
+      "label": "Settings",
+      "path": "/settings"
+    }
+  ]
+}
