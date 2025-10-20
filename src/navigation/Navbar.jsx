@@ -26,9 +26,12 @@ export default function Navbar() {
           </svg>
         </label>
       </div>
-      <div className="mx-2 px-2 font-bold">
-        <h1>GMIT</h1>
-        <h1>SINODE</h1>
+      <div className="mx-2 px-2 font-bold flex items-center gap-2">
+        <img src="/gmit_logo.png" alt="GMIT Logo" className="h-12 w-auto" />
+        <div>
+          <h1>GMIT</h1>
+          <h1>SINODE</h1>
+        </div>
       </div>
       <SearchBar />
       <div className="hidden lg:block">
