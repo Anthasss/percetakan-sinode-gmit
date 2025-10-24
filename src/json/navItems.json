@@ -4,6 +4,11 @@
       "id": 1,
       "label": "Home",
       "path": "/"
+    },
+    {
+      "id": 2,
+      "label": "My Order",
+      "path": "/my-order"
     }
   ]
 }

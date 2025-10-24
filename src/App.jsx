@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import HomePage from "./pages/HomePage";
 import ProductPage from "./pages/ProductPage";
+import MyOrderPage from "./pages/MyOrderPage";
 
 function App() {
   console.log("Auth0 Domain:", import.meta.env.VITE_AUTH0_DOMAIN);
@@ -20,6 +21,10 @@ function App() {
           <Route
             path="/product/:productId"
             element={<ProductPage />}
+          />
+          <Route
+            path="/my-order"
+            element={<MyOrderPage />}
           />
         </Routes>
       </Layout>
