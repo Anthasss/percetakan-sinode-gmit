@@ -9,6 +9,11 @@
       "id": 2,
       "label": "My Order",
       "path": "/my-order"
+    },
+    {
+      "id": 3,
+      "label": "Order",
+      "path": "/admin/order"
     }
   ]
 }
