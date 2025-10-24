@@ -1,0 +1,117 @@
+{
+  "orders": [
+    {
+      "id": 1,
+      "productId": 1,
+      "productTitle": "Print Biasa",
+      "quantity": 50,
+      "price": 100000,
+      "status": "Sedang Diproses",
+      "orderDate": "2025-10-20",
+      "details": {
+        "Tipe Kertas": "A4",
+        "Jenis Warna": "Warna",
+        "File": "design-brosur.pdf"
+      }
+    },
+    {
+      "id": 2,
+      "productId": 2,
+      "productTitle": "Buku",
+      "quantity": 100,
+      "price": 500000,
+      "status": "Selesai",
+      "orderDate": "2025-10-15",
+      "details": {
+        "Tipe Kertas Isi": "HVS",
+        "Tipe Kertas Cover": "Art Paper",
+        "File Cover dan Isi": "buku-gereja.pdf"
+      }
+    },
+    {
+      "id": 3,
+      "productId": 3,
+      "productTitle": "Undangan",
+      "quantity": 200,
+      "price": 800000,
+      "status": "Menunggu Pembayaran",
+      "orderDate": "2025-10-22",
+      "details": {
+        "Tipe Kertas": "Kertas Wangi / Jasmine",
+        "Ukuran": "15cm x 20cm",
+        "File": "undangan-pernikahan.pdf"
+      }
+    },
+    {
+      "id": 4,
+      "productId": 5,
+      "productTitle": "Spanduk/Baliho",
+      "quantity": 1,
+      "price": 350000,
+      "status": "Sedang Diproses",
+      "orderDate": "2025-10-18",
+      "details": {
+        "Bahan": "(Menunggu konfirmasi)",
+        "Ukuran": "3m x 2m",
+        "File": "banner-gereja.png"
+      }
+    },
+    {
+      "id": 5,
+      "productId": 11,
+      "productTitle": "Stempel",
+      "quantity": 2,
+      "price": 150000,
+      "status": "Selesai",
+      "orderDate": "2025-10-10",
+      "details": {
+        "Design Kepala Stempel": "Oval",
+        "Tipe": "Stempel Biasa",
+        "Ukuran Logo / Design": "5cm x 5cm",
+        "File Logo": "logo-gereja.png"
+      }
+    },
+    {
+      "id": 6,
+      "productId": 14,
+      "productTitle": "Sablon Baju",
+      "quantity": 50,
+      "price": 1250000,
+      "status": "Dibatalkan",
+      "orderDate": "2025-10-05",
+      "details": {
+        "Pesan Baju": "Ya",
+        "Warna Baju": "Putih",
+        "Jumlah Pesanan": "50",
+        "Ukuran dan Jumlah": "10 S, 15 M, 20 L, 5 XL",
+        "File": "logo-acara.png"
+      }
+    },
+    {
+      "id": 7,
+      "productId": 6,
+      "productTitle": "Roll Banner",
+      "quantity": 3,
+      "price": 450000,
+      "status": "Sedang Diproses",
+      "orderDate": "2025-10-23",
+      "details": {
+        "Ukuran": "85cm x 200cm",
+        "File": "roll-banner-design.pdf"
+      }
+    },
+    {
+      "id": 8,
+      "productId": 4,
+      "productTitle": "Sticker",
+      "quantity": 500,
+      "price": 300000,
+      "status": "Menunggu Pembayaran",
+      "orderDate": "2025-10-21",
+      "details": {
+        "Tipe Bahan": "Vynil",
+        "File": "sticker-logo.ai"
+      }
+    }
+  ]
+}
