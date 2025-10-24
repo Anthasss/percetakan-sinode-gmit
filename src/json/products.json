@@ -2,108 +2,87 @@
   "products": [
     {
       "id": 1,
-      "title": "Business Card Premium",
-      "price": 150000,
+      "title": "Print Biasa",
       "image": "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
       "category": "print"
     },
     {
       "id": 2,
-      "title": "Flyer A5 Glossy",
-      "price": 250000,
+      "title": "Buku",
       "image": "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
       "category": "print"
     },
     {
       "id": 3,
-      "title": "Banner 3x2 Meter",
-      "price": 500000,
+      "title": "Undangan",
       "image": "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
-      "category": "outdoor"
+      "category": "print"
     },
     {
       "id": 4,
-      "title": "Poster A3 Full Color",
-      "price": 75000,
+      "title": "Sticker",
       "image": "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
       "category": "print"
     },
     {
       "id": 5,
-      "title": "Brochure Folded",
-      "price": 300000,
+      "title": "Spanduk/Baliho",
       "image": "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
-      "category": "print"
+      "category": "outdoor"
     },
     {
       "id": 6,
-      "title": "Sticker Custom",
-      "price": 100000,
+      "title": "Roll Banner",
       "image": "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
-      "category": "featured"
+      "category": "outdoor"
     },
     {
       "id": 7,
-      "title": "Letterhead A4",
-      "price": 200000,
+      "title": "X-Banner",
       "image": "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
-      "category": "print"
+      "category": "outdoor"
     },
     {
       "id": 8,
-      "title": "Calendar Custom",
-      "price": 350000,
+      "title": "Neon Box",
       "image": "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
-      "category": "featured"
+      "category": "outdoor"
     },
     {
       "id": 9,
-      "title": "Neon Box Sign",
-      "price": 800000,
+      "title": "Krans Bunga",
       "image": "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
       "category": "outdoor"
     },
     {
       "id": 10,
-      "title": "Billboard Banner",
-      "price": 1200000,
+      "title": "Batu Nisan",
       "image": "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
       "category": "outdoor"
     },
     {
       "id": 11,
-      "title": "Roll Up Banner",
-      "price": 350000,
+      "title": "Stempel",
       "image": "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
-      "category": "outdoor"
+      "category": "others"
     },
     {
       "id": 12,
-      "title": "T-Shirt Custom Print",
-      "price": 120000,
+      "title": "Sablon Gelas",
       "image": "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
-      "category": "featured"
+      "category": "others"
     },
     {
       "id": 13,
-      "title": "Mug Printing",
-      "price": 85000,
+      "title": "Sablon Piring",
       "image": "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
-      "category": "featured"
+      "category": "others"
     },
     {
       "id": 14,
-      "title": "Outdoor Flag Banner",
-      "price": 450000,
+      "title": "Sablon Baju",
       "image": "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
-      "category": "outdoor"
-    },
-    {
-      "id": 15,
-      "title": "Booklet A5",
-      "price": 180000,
-      "image": "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
-      "category": "print"
+      "category": "others"
     }
   ]
 }
