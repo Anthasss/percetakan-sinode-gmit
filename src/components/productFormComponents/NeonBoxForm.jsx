@@ -58,7 +58,7 @@ export default function NeonBoxForm({ onSubmit }) {
         </div>
       </div>
       <button type="submit" className="btn btn-primary mt-auto">
-        Submit Order
+        Pesan
       </button>
     </form>
   );

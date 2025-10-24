@@ -39,7 +39,7 @@ export default function BukuForm({ onSubmit }) {
         />
       </div>
       <button type="submit" className="btn btn-primary mt-auto">
-        Submit Order
+        Pesan
       </button>
     </form>
   );
