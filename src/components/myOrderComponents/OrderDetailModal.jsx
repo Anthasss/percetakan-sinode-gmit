@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { X } from "lucide-react";
 
 export default function OrderDetailModal({ order }) {
@@ -75,15 +74,3 @@ export default function OrderDetailModal({ order }) {
     </dialog>
   );
 }
-
-OrderDetailModal.propTypes = {
-  order: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    productTitle: PropTypes.string.isRequired,
-    quantity: PropTypes.number.isRequired,
-    price: PropTypes.number.isRequired,
-    status: PropTypes.string.isRequired,
-    orderDate: PropTypes.string.isRequired,
-    details: PropTypes.object.isRequired,
-  }),
-};
