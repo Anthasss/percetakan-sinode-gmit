@@ -29,13 +29,15 @@ export default function OrderProductForm({ productId }) {
   };
 
   return (
-    <div className="w-full flex-1 border-2 border-neutral rounded-lg p-4">
+    <div className="w-full flex-1 border-2 border-neutral rounded-lg p-4 flex flex-col">
       <h2 className="text-xl font-bold mb-4">Form Pemesanan - {product.title}</h2>
-      {FormComponent ? (
-        <FormComponent onSubmit={handleFormSubmit} />
-      ) : (
-        <p className="text-warning">Form belum tersedia untuk produk ini</p>
-      )}
+      <div className="flex-1 overflow-auto">
+        {FormComponent ? (
+          <FormComponent onSubmit={handleFormSubmit} />
+        ) : (
+          <p className="text-warning">Form belum tersedia untuk produk ini</p>
+        )}
+      </div>
     </div>
   );
 }
