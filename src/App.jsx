@@ -6,7 +6,7 @@ import HomePage from "./pages/HomePage";
 import ProductPage from "./pages/ProductPage";
 import MyOrderPage from "./pages/MyOrderPage";
 
-import AdminOrderPage from "./pages/admin/OrderPage";
+import AdminOrdersPage from "./pages/admin/AdminOrdersPage";
 
 function App() {
   console.log("Auth0 Domain:", import.meta.env.VITE_AUTH0_DOMAIN);
@@ -30,7 +30,7 @@ function App() {
           />
           <Route
             path="/admin/order"
-            element={<AdminOrderPage />}
+            element={<AdminOrdersPage />}
           />
         </Routes>
       </Layout>

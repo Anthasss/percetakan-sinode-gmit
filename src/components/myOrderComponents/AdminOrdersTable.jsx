@@ -1,5 +1,8 @@
-export default function OrdersTable({ orders, onViewDetail, onCancelOrder }) {
+export default function AdminOrdersTable({ orders, onViewDetail, onInputPrice, onCancelOrder }) {
   const formatCurrency = (amount) => {
+    if (amount === null || amount === undefined) {
+      return '-';
+    }
     return new Intl.NumberFormat('id-ID', {
       style: 'currency',
       currency: 'IDR',
@@ -9,9 +12,9 @@ export default function OrdersTable({ orders, onViewDetail, onCancelOrder }) {
 
   const getStatusBadge = (status) => {
     const statusColors = {
-      "Sedang Diproses": "badge-warning",
+      "Menunggu Konfirmasi": "badge-warning",
+      "Sedang Diproses": "badge-info",
       "Selesai": "badge-success",
-      "Menunggu Pembayaran": "badge-info",
       "Dibatalkan": "badge-error"
     };
     return statusColors[status] || "badge-ghost";
@@ -23,6 +26,7 @@ export default function OrdersTable({ orders, onViewDetail, onCancelOrder }) {
         <thead>
           <tr>
             <th>No.</th>
+            <th>Nama User</th>
             <th>Produk</th>
             <th>Kuantitas</th>
             <th>Harga</th>
@@ -34,6 +38,7 @@ export default function OrdersTable({ orders, onViewDetail, onCancelOrder }) {
           {orders.map((order, index) => (
             <tr key={order.id}>
               <td>{index + 1}</td>
+              <td className="font-medium">{order.userName}</td>
               <td className="font-semibold">{order.productTitle}</td>
               <td>{order.quantity}</td>
               <td>{formatCurrency(order.price)}</td>
@@ -43,13 +48,21 @@ export default function OrdersTable({ orders, onViewDetail, onCancelOrder }) {
                 </span>
               </td>
               <td>
-                <div className="flex gap-2">
+                <div className="flex gap-2 flex-wrap">
                   <button 
                     className="btn btn-sm btn-info"
                     onClick={() => onViewDetail(order)}
                   >
                     Detail
                   </button>
+                  {(order.price === null || order.price === undefined) && (
+                    <button 
+                      className="btn btn-sm btn-primary"
+                      onClick={() => onInputPrice(order)}
+                    >
+                      Input Harga
+                    </button>
+                  )}
                   {order.status !== "Dibatalkan" && order.status !== "Selesai" && (
                     <button 
                       className="btn btn-sm btn-error"
