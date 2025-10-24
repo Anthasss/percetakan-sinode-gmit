@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import navData from "../json/navItems.json";
 import SearchBar from "./SearchBar";
+import { useAuth0 } from '@auth0/auth0-react';
 
 export default function Navbar() {
+  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
   return (
     <div className="navbar bg-base-300 w-full">
       <div className="flex-none lg:hidden">
@@ -48,6 +50,39 @@ export default function Navbar() {
             </li>
           ))}
         </ul>
+      </div>
+      <div className="flex-none ml-auto">
+        {!isAuthenticated ? (
+          <button className="btn btn-primary" onClick={() => loginWithRedirect()}>
+            Login
+          </button>
+        ) : (
+          <div className="dropdown dropdown-end">
+            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+              <div className="w-10 rounded-full">
+                <img
+                  alt={user?.name || "User"}
+                  src={`https://ui-avatars.com/api/?name=${encodeURIComponent(user?.name || "User")}`}
+                />
+              </div>
+            </div>
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+            >
+              <li className="menu-title">
+                <span>{user?.name}</span>
+              </li>
+              <li>
+                <button
+                  onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
+                >
+                  Logout
+                </button>
+              </li>
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );
