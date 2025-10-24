@@ -2,22 +2,22 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 
 export default function QuantityPicker() {
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
 
   const increment = () => {
     setQuantity(prev => prev + 1);
   };
 
   const decrement = () => {
-    setQuantity(prev => Math.max(0, prev - 1));
+    setQuantity(prev => Math.max(1, prev - 1));
   };
 
   const handleInputChange = (e) => {
     const value = parseInt(e.target.value);
-    if (!isNaN(value) && value >= 0) {
+    if (!isNaN(value) && value >= 1) {
       setQuantity(value);
     } else if (e.target.value === '') {
-      setQuantity(0);
+      setQuantity(1);
     }
   };
 
@@ -28,7 +28,7 @@ export default function QuantityPicker() {
         <button 
           className="btn join-item" 
           onClick={decrement}
-          disabled={quantity === 0}
+          disabled={quantity === 1}
         >
           <ChevronLeft className="h-4 w-4" />
         </button>

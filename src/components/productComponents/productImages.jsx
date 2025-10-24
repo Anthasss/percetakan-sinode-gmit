@@ -39,7 +39,7 @@ export default function ProductImages() {
     <div className="w-full flex flex-col gap-2 items-center">
       {/* large image */}
       <img
-        src="p_dummy.png"
+        src="/p_dummy.png"
         alt="this product"
         className="w-full aspect-square object-cover max-w-sm border-2 border-neutral rounded-md"
       />
@@ -51,7 +51,7 @@ export default function ProductImages() {
             <div key={index} className="px-1">
               <div className="border-2 border-neutral rounded-md overflow-hidden">
                 <img
-                  src="p_dummy.png"
+                  src="/p_dummy.png"
                   alt={`product thumbnail ${index + 1}`}
                   className="w-full aspect-square object-cover cursor-pointer hover:opacity-80 transition-opacity"
                 />
