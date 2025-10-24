@@ -45,7 +45,7 @@ export default function ProductImages() {
       />
 
       {/* smaller images slider */}
-      <div className="py-2 w-full max-w-sm">
+      <div className="py-2 w-full max-w-sm mb-16">
         <Slider {...settings}>
           {Array.from({ length: 10 }, (_, index) => (
             <div key={index} className="px-1">
