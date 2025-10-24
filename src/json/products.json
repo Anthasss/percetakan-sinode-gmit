@@ -1,0 +1,109 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "title": "Business Card Premium",
+      "price": 150000,
+      "image": "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
+      "category": "print"
+    },
+    {
+      "id": 2,
+      "title": "Flyer A5 Glossy",
+      "price": 250000,
+      "image": "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
+      "category": "print"
+    },
+    {
+      "id": 3,
+      "title": "Banner 3x2 Meter",
+      "price": 500000,
+      "image": "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
+      "category": "outdoor"
+    },
+    {
+      "id": 4,
+      "title": "Poster A3 Full Color",
+      "price": 75000,
+      "image": "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
+      "category": "print"
+    },
+    {
+      "id": 5,
+      "title": "Brochure Folded",
+      "price": 300000,
+      "image": "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
+      "category": "print"
+    },
+    {
+      "id": 6,
+      "title": "Sticker Custom",
+      "price": 100000,
+      "image": "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
+      "category": "featured"
+    },
+    {
+      "id": 7,
+      "title": "Letterhead A4",
+      "price": 200000,
+      "image": "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
+      "category": "print"
+    },
+    {
+      "id": 8,
+      "title": "Calendar Custom",
+      "price": 350000,
+      "image": "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
+      "category": "featured"
+    },
+    {
+      "id": 9,
+      "title": "Neon Box Sign",
+      "price": 800000,
+      "image": "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
+      "category": "outdoor"
+    },
+    {
+      "id": 10,
+      "title": "Billboard Banner",
+      "price": 1200000,
+      "image": "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
+      "category": "outdoor"
+    },
+    {
+      "id": 11,
+      "title": "Roll Up Banner",
+      "price": 350000,
+      "image": "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
+      "category": "outdoor"
+    },
+    {
+      "id": 12,
+      "title": "T-Shirt Custom Print",
+      "price": 120000,
+      "image": "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
+      "category": "featured"
+    },
+    {
+      "id": 13,
+      "title": "Mug Printing",
+      "price": 85000,
+      "image": "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
+      "category": "featured"
+    },
+    {
+      "id": 14,
+      "title": "Outdoor Flag Banner",
+      "price": 450000,
+      "image": "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
+      "category": "outdoor"
+    },
+    {
+      "id": 15,
+      "title": "Booklet A5",
+      "price": 180000,
+      "image": "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
+      "category": "print"
+    }
+  ]
+}

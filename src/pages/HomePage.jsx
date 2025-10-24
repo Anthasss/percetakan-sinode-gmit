@@ -2,25 +2,33 @@ import HomeCarousel from "../components/homeComponents/HomeCarousel"
 import ProductRowContainer from "../components/homeComponents/ProductRowContainer"
 import ProductRow from "../components/homeComponents/ProductRow"
 import ProductRowCard from "../components/homeComponents/ProductRowCard"
+import productsData from "../json/products.json"
 
 export default function HomePage(){
+  const { products } = productsData;
+
+  // Filter products by category
+  const featuredProducts = products.filter(product => product.category === "featured");
+  const printProducts = products.filter(product => product.category === "print");
+  const outdoorProducts = products.filter(product => product.category === "outdoor");
+
   return (
     <div className="w-full min-h-screen p-8 flex flex-col gap-16">
       <HomeCarousel/>
       <ProductRowContainer>
         <ProductRow title="Featured Products">
-          {Array.from({ length: 8 }).map((_, index) => (
-            <ProductRowCard key={index} />
+          {featuredProducts.map((product) => (
+            <ProductRowCard key={product.id} product={product} />
           ))}
         </ProductRow>
         <ProductRow title="Print">
-          {Array.from({ length: 3 }).map((_, index) => (
-            <ProductRowCard key={index} />
+          {printProducts.map((product) => (
+            <ProductRowCard key={product.id} product={product} />
           ))}
         </ProductRow>
         <ProductRow title="Outdoor">
-          {Array.from({ length: 5 }).map((_, index) => (
-            <ProductRowCard key={index} />
+          {outdoorProducts.map((product) => (
+            <ProductRowCard key={product.id} product={product} />
           ))}
         </ProductRow>
       </ProductRowContainer>

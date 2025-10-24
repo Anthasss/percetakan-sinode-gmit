@@ -1,17 +1,30 @@
-export default function ProductRowCard() {
+import { Link } from "react-router-dom";
+
+export default function ProductRowCard({ product }) {
+  // Format price to Indonesian Rupiah
+  const formatPrice = (price) => {
+    return new Intl.NumberFormat('id-ID', {
+      style: 'currency',
+      currency: 'IDR',
+      minimumFractionDigits: 0
+    }).format(price);
+  };
+
   return (
     <div className="card bg-base-100 w-full shadow-sm">
       <figure>
         <img
-          src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-          alt="Shoes"
+          src={product.image}
+          alt={product.title}
         />
       </figure>
       <div className="card-body">
-        <h2 className="card-title">Card Title</h2>
-        <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
+        <h2 className="card-title">{product.title}</h2>
+        <p className="text-lg font-semibold">{formatPrice(product.price)}</p>
         <div className="card-actions justify-end">
-          <button className="btn btn-primary">Buy Now</button>
+          <Link to={`/product/${product.id}`}>
+            <button className="btn btn-primary">Buy Now</button>
+          </Link>
         </div>
       </div>
     </div>
