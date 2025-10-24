@@ -1,8 +1,12 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
+import productsData from "../../json/products.json";
 
-export default function QuantityPicker() {
+export default function QuantityPicker({ productId }) {
   const [quantity, setQuantity] = useState(1);
+
+  // Find product by ID
+  const product = productsData.products.find(p => p.id === parseInt(productId));
 
   const increment = () => {
     setQuantity(prev => prev + 1);
@@ -23,7 +27,7 @@ export default function QuantityPicker() {
 
   return (
     <div className="w-full border-2 border-neutral rounded-md p-4">
-      <h1 className="font-bold mb-2">Product Title</h1>
+      <h1 className="font-bold mb-2">Kuantitas {product?.title || "Product Title"}</h1>
       <div className="join flex justify-center">
         <button 
           className="btn join-item" 

@@ -23,7 +23,7 @@ export default function ProductPage() {
       {/* right side */}
       <div className="w-auto h-full rounded-lg">
         <ProductImages productId={productId} />
-        {!hideQuantityPicker && <QuantityPicker />}
+        {!hideQuantityPicker && <QuantityPicker productId={productId} />}
       </div>
     </div>
   )
