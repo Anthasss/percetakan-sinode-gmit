@@ -51,7 +51,7 @@ export default function Navbar() {
           ))}
         </ul>
       </div>
-      <div className="flex-none ml-auto">
+      <div className="flex-none ml-auto hidden lg:flex">
         {!isAuthenticated ? (
           <button className="btn btn-primary" onClick={() => loginWithRedirect()}>
             Login
