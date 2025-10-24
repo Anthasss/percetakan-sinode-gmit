@@ -1,10 +1,35 @@
 import productsData from "../../json/products.json";
 import PrintBiasaForm from "../productFormComponents/PrintBiasaForm";
+import BukuForm from "../productFormComponents/BukuForm";
+import UndanganForm from "../productFormComponents/UndanganForm";
+import StickerForm from "../productFormComponents/StickerForm";
+import SpandukBalihoForm from "../productFormComponents/SpandukBalihoForm";
+import RollBannerForm from "../productFormComponents/RollBannerForm";
+import XBannerForm from "../productFormComponents/XBannerForm";
+import NeonBoxForm from "../productFormComponents/NeonBoxForm";
+import KransBungaForm from "../productFormComponents/KransBungaForm";
+import BatuNisanForm from "../productFormComponents/BatuNisanForm";
+import StempelForm from "../productFormComponents/StempelForm";
+import SablonGelasForm from "../productFormComponents/SablonGelasForm";
+import SablonPiringForm from "../productFormComponents/SablonPiringForm";
+import SablonBajuForm from "../productFormComponents/SablonBajuForm";
 
 // Form component mapping
 const formComponents = {
   PrintBiasaForm: PrintBiasaForm,
-  // Add other form components here as they are created
+  BukuForm: BukuForm,
+  UndanganForm: UndanganForm,
+  StickerForm: StickerForm,
+  SpandukBalihoForm: SpandukBalihoForm,
+  RollBannerForm: RollBannerForm,
+  XBannerForm: XBannerForm,
+  NeonBoxForm: NeonBoxForm,
+  KransBungaForm: KransBungaForm,
+  BatuNisanForm: BatuNisanForm,
+  StempelForm: StempelForm,
+  SablonGelasForm: SablonGelasForm,
+  SablonPiringForm: SablonPiringForm,
+  SablonBajuForm: SablonBajuForm,
 };
 
 export default function OrderProductForm({ productId }) {
