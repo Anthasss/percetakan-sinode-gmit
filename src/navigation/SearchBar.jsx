@@ -12,7 +12,6 @@ export default function SearchBar() {
             className="grow"
           />
         </label>
-        <button className="btn join-item">Kategori <span className="flex justify-center items-center"><ChevronDown className="inline-block h-4 w-4" /></span></button>
       </div>
     </div>
   );
