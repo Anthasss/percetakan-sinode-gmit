@@ -1,4 +1,4 @@
-export default function AdminOrdersTable({ orders, onViewDetail, onInputPrice, onCancelOrder }) {
+export default function AdminOrdersTable({ orders, onViewDetail, onInputPrice, onCancelOrder, onChangeStatus }) {
   const formatCurrency = (amount) => {
     if (amount === null || amount === undefined) {
       return '-';
@@ -27,9 +27,9 @@ export default function AdminOrdersTable({ orders, onViewDetail, onInputPrice, o
 
   const getStatusLabel = (status) => {
     const statusLabels = {
-      "pending": "Menunggu Konfirmasi",
-      "processing": "Sedang Diproses",
-      "completed": "Selesai",
+      "pending": "Menunggu harga dari admin",
+      "processing": "Dalam progres",
+      "completed": "Siap diambil",
       "cancelled": "Dibatalkan"
     };
     return statusLabels[status] || status;
@@ -70,22 +70,28 @@ export default function AdminOrdersTable({ orders, onViewDetail, onInputPrice, o
                   >
                     Detail
                   </button>
-                  {(order.price === null || order.price === undefined) && (
-                    <button 
-                      className="btn btn-sm btn-primary"
-                      onClick={() => onInputPrice(order)}
-                    >
-                      Input Harga
-                    </button>
-                  )}
+                  <button 
+                    className="btn btn-sm btn-primary"
+                    onClick={() => onInputPrice(order)}
+                  >
+                    Tetapkan Harga
+                  </button>
                   {order.status !== "cancelled" && order.status !== "completed" && 
                    order.status !== "Dibatalkan" && order.status !== "Selesai" && (
-                    <button 
-                      className="btn btn-sm btn-error"
-                      onClick={() => onCancelOrder(order.id)}
-                    >
-                      Batalkan
-                    </button>
+                    <>
+                      <button 
+                        className="btn btn-sm btn-accent"
+                        onClick={() => onChangeStatus(order)}
+                      >
+                        Ubah Status
+                      </button>
+                      <button 
+                        className="btn btn-sm btn-error"
+                        onClick={() => onCancelOrder(order.id)}
+                      >
+                        Batalkan
+                      </button>
+                    </>
                   )}
                 </div>
               </td>
