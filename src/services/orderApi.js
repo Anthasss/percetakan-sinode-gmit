@@ -1,9 +1,15 @@
 import { axiosInstance } from './config';
 
 export const orderApi = {
-  create: async (orderData) => {
+  create: async ({ userId, productId, price, status = 'pending', orderSpecifications }) => {
     try {
-      const response = await axiosInstance.post('/api/orders', orderData);
+      const response = await axiosInstance.post('/api/orders', {
+        userId,
+        productId,
+        price,
+        status,
+        orderSpecifications,
+      });
       return response.data;
     } catch (error) {
       throw new Error(`Failed to create order: ${error.response?.statusText || error.message}`);
