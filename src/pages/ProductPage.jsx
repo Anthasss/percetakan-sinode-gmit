@@ -4,6 +4,7 @@ import OrderProductForm from "../components/productComponents/orderProductForm"
 import ProductImages from "../components/productComponents/productImages"
 import QuantityPicker from "../components/productComponents/quantityPicker"
 import productsData from "../json/products.json";
+import { OrderProvider } from "../context/OrderContext";
 
 export default function ProductPage() {
   const { productId } = useParams();
@@ -13,18 +14,20 @@ export default function ProductPage() {
   const hideQuantityPicker = product?.formComponent === "SablonBajuForm";
 
   return (
-    <div className="w-full min-h-screen p-8 flex gap-16">
-      {/* left side */}
-      <div className="flex-1 flex flex-col rounded-lg">
-        <ProductTitle productId={productId} />
-        <OrderProductForm productId={productId} />
-      </div>
+    <OrderProvider>
+      <div className="w-full min-h-screen p-8 flex gap-16">
+        {/* left side */}
+        <div className="flex-1 flex flex-col rounded-lg">
+          <ProductTitle productId={productId} />
+          <OrderProductForm productId={productId} />
+        </div>
 
-      {/* right side */}
-      <div className="w-auto h-full rounded-lg">
-        <ProductImages productId={productId} />
-        {!hideQuantityPicker && <QuantityPicker productId={productId} />}
+        {/* right side */}
+        <div className="w-auto h-full rounded-lg">
+          <ProductImages productId={productId} />
+          {!hideQuantityPicker && <QuantityPicker productId={productId} />}
+        </div>
       </div>
-    </div>
+    </OrderProvider>
   )
 }

@@ -2,7 +2,7 @@ import { useState } from "react";
 import DropdownInput from "../productUserInputComponents/DropdownInput";
 import FileUploadInput from "../productUserInputComponents/FileUploadInput";
 
-export default function PrintBiasaForm({ onSubmit }) {
+export default function PrintBiasaForm({ onSubmit, isSubmitting }) {
   const [formData, setFormData] = useState({
     tipeKertas: "",
     jenisWarna: "",
@@ -37,8 +37,19 @@ export default function PrintBiasaForm({ onSubmit }) {
           accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
         />
       </div>
-      <button type="submit" className="btn btn-primary mt-auto">
-        Pesan
+      <button 
+        type="submit" 
+        className="btn btn-primary mt-auto"
+        disabled={isSubmitting}
+      >
+        {isSubmitting ? (
+          <>
+            <span className="loading loading-spinner loading-sm"></span>
+            Processing...
+          </>
+        ) : (
+          'Pesan'
+        )}
       </button>
     </form>
   );

@@ -1,27 +1,27 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useState } from "react";
 import productsData from "../../json/products.json";
+import { useOrder } from "../../context/OrderContext";
 
 export default function QuantityPicker({ productId }) {
-  const [quantity, setQuantity] = useState(1);
+  const { quantity, updateQuantity } = useOrder();
 
   // Find product by ID
   const product = productsData.products.find(p => p.id === parseInt(productId));
 
   const increment = () => {
-    setQuantity(prev => prev + 1);
+    updateQuantity(quantity + 1);
   };
 
   const decrement = () => {
-    setQuantity(prev => Math.max(1, prev - 1));
+    updateQuantity(Math.max(1, quantity - 1));
   };
 
   const handleInputChange = (e) => {
     const value = parseInt(e.target.value);
     if (!isNaN(value) && value >= 1) {
-      setQuantity(value);
+      updateQuantity(value);
     } else if (e.target.value === '') {
-      setQuantity(1);
+      updateQuantity(1);
     }
   };
 
