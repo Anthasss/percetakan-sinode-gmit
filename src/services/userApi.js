@@ -6,7 +6,9 @@ export const userApi = {
       const response = await axiosInstance.post('/api/users', userData);
       return response.data;
     } catch (error) {
-      throw new Error(`Failed to create/get user: ${error.response?.statusText || error.message}`);
+      const errorMsg = error.response?.data?.message || error.response?.statusText || error.message;
+      console.error('Failed to create/get user:', errorMsg, error);
+      throw new Error(`Failed to create/get user: ${errorMsg}`);
     }
   },
   
@@ -15,7 +17,9 @@ export const userApi = {
       const response = await axiosInstance.get(`/api/users/${id}`);
       return response.data;
     } catch (error) {
-      throw new Error(`Failed to get user: ${error.response?.statusText || error.message}`);
+      const errorMsg = error.response?.data?.message || error.response?.statusText || error.message;
+      console.error('Failed to get user:', errorMsg, error);
+      throw new Error(`Failed to get user: ${errorMsg}`);
     }
   },
   
@@ -24,7 +28,9 @@ export const userApi = {
       const response = await axiosInstance.patch(`/api/users/${id}/role`, { role });
       return response.data;
     } catch (error) {
-      throw new Error(`Failed to update user role: ${error.response?.statusText || error.message}`);
+      const errorMsg = error.response?.data?.message || error.response?.statusText || error.message;
+      console.error('Failed to update user role:', errorMsg, error);
+      throw new Error(`Failed to update user role: ${errorMsg}`);
     }
   },
 };

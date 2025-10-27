@@ -1,48 +1,49 @@
 import { useState } from 'react';
 import { X } from "lucide-react";
 
-export default function PriceInputModal({ order, onSavePrice }) {
-  const [price, setPrice] = useState('');
+export default function StatusUpdateModal({ order, onSaveStatus }) {
+  const [selectedStatus, setSelectedStatus] = useState('');
   const [error, setError] = useState('');
+
+  const statusOptions = [
+    { value: 'pending', label: 'Menunggu harga dari admin' },
+    { value: 'processing', label: 'Dalam progres' },
+    { value: 'completed', label: 'Siap diambil' },
+  ];
 
   if (!order) return null;
 
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    const numericPrice = parseFloat(price);
-    
-    if (!price || isNaN(numericPrice) || numericPrice <= 0) {
-      setError('Harap masukkan harga yang valid');
+    if (!selectedStatus) {
+      setError('Harap pilih status');
       return;
     }
 
-    onSavePrice(order.id, numericPrice);
-    setPrice('');
+    onSaveStatus(order.id, selectedStatus);
+    setSelectedStatus('');
     setError('');
-    document.getElementById('price_input_modal').close();
+    document.getElementById('status_update_modal').close();
   };
 
   const handleClose = () => {
-    setPrice('');
+    setSelectedStatus('');
     setError('');
   };
 
-  const formatCurrency = (value) => {
-    if (!value) return '';
-    const number = parseFloat(value.toString().replace(/[^0-9]/g, ''));
-    if (isNaN(number)) return '';
-    return new Intl.NumberFormat('id-ID').format(number);
-  };
-
-  const handlePriceChange = (e) => {
-    const value = e.target.value.replace(/[^0-9]/g, '');
-    setPrice(value);
-    setError('');
+  const getCurrentStatusLabel = (status) => {
+    const statusLabels = {
+      "pending": "Menunggu harga dari admin",
+      "processing": "Dalam progres",
+      "completed": "Siap diambil",
+      "cancelled": "Dibatalkan"
+    };
+    return statusLabels[status] || status;
   };
 
   return (
-    <dialog id="price_input_modal" className="modal" onClose={handleClose}>
+    <dialog id="status_update_modal" className="modal" onClose={handleClose}>
       <div className="modal-box">
         <form method="dialog">
           <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
@@ -50,7 +51,7 @@ export default function PriceInputModal({ order, onSavePrice }) {
           </button>
         </form>
         
-        <h3 className="font-bold text-2xl mb-4">Tetapkan Harga</h3>
+        <h3 className="font-bold text-2xl mb-4">Ubah Status Pesanan</h3>
         
         <div className="space-y-4">
           <div className="bg-base-200 p-4 rounded-lg space-y-2">
@@ -64,34 +65,39 @@ export default function PriceInputModal({ order, onSavePrice }) {
               <div className="font-semibold">Produk:</div>
               <div>{order.productTitle || order.product?.title || `Product #${order.productId}`}</div>
               
-              <div className="font-semibold">Kuantitas:</div>
-              <div>{order.orderSpecifications?.quantity || order.quantity || '-'}</div>
+              <div className="font-semibold">Status Saat Ini:</div>
+              <div>
+                <span className="badge badge-info">
+                  {getCurrentStatusLabel(order.status)}
+                </span>
+              </div>
             </div>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="form-control">
               <label className="label">
-                <span className="label-text font-semibold">Harga (IDR)</span>
+                <span className="label-text font-semibold">Status Baru</span>
               </label>
-              <input
-                type="text"
-                placeholder="Masukkan harga"
-                className={`input input-bordered w-full ${error ? 'input-error' : ''}`}
-                value={formatCurrency(price)}
-                onChange={handlePriceChange}
+              <select
+                className={`select select-bordered w-full ${error ? 'select-error' : ''}`}
+                value={selectedStatus}
+                onChange={(e) => {
+                  setSelectedStatus(e.target.value);
+                  setError('');
+                }}
                 autoFocus
-              />
+              >
+                <option value="">Pilih status</option>
+                {statusOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
               {error && (
                 <label className="label">
                   <span className="label-text-alt text-error">{error}</span>
-                </label>
-              )}
-              {price && !error && (
-                <label className="label">
-                  <span className="label-text-alt">
-                    Preview: Rp {formatCurrency(price)}
-                  </span>
                 </label>
               )}
             </div>
@@ -101,14 +107,14 @@ export default function PriceInputModal({ order, onSavePrice }) {
                 type="button"
                 className="btn btn-ghost"
                 onClick={() => {
-                  document.getElementById('price_input_modal').close();
+                  document.getElementById('status_update_modal').close();
                   handleClose();
                 }}
               >
                 Batal
               </button>
               <button type="submit" className="btn btn-primary">
-                Simpan Harga
+                Simpan Status
               </button>
             </div>
           </form>

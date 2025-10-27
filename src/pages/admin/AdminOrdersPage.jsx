@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import AdminOrdersTable from "../../components/myOrderComponents/AdminOrdersTable";
 import OrderDetailModal from "../../components/myOrderComponents/OrderDetailModal";
 import PriceInputModal from "../../components/myOrderComponents/PriceInputModal";
+import StatusUpdateModal from "../../components/myOrderComponents/StatusUpdateModal";
 import { useAuthWithBackend } from "../../hooks/useAuthWithBackend";
 import { orderApi } from "../../services/orderApi";
 import toast from "../../utils/toast";
@@ -11,6 +12,7 @@ export default function AdminOrdersPage() {
   const [orders, setOrders] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [selectedOrderForPrice, setSelectedOrderForPrice] = useState(null);
+  const [selectedOrderForStatus, setSelectedOrderForStatus] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -67,19 +69,40 @@ export default function AdminOrdersPage() {
     document.getElementById('price_input_modal').showModal();
   };
 
+  const handleChangeStatus = (order) => {
+    setSelectedOrderForStatus(order);
+    document.getElementById('status_update_modal').showModal();
+  };
+
   const handleSavePrice = async (orderId, price) => {
     try {
       await orderApi.updatePrice(orderId, price);
       
       // Update local state
       setOrders(orders.map(order => 
-        order.id === orderId ? { ...order, price: price, status: "processing" } : order
+        order.id === orderId ? { ...order, price: price } : order
       ));
       
       toast.success('Price updated successfully');
     } catch (err) {
       console.error('Error updating price:', err);
       toast.error('Failed to update price. Please try again.');
+    }
+  };
+
+  const handleSaveStatus = async (orderId, status) => {
+    try {
+      await orderApi.update(orderId, { status });
+      
+      // Update local state
+      setOrders(orders.map(order => 
+        order.id === orderId ? { ...order, status: status } : order
+      ));
+      
+      toast.success('Status updated successfully');
+    } catch (err) {
+      console.error('Error updating status:', err);
+      toast.error('Failed to update status. Please try again.');
     }
   };
 
@@ -128,6 +151,7 @@ export default function AdminOrdersPage() {
             orders={orders}
             onViewDetail={handleViewDetail}
             onInputPrice={handleInputPrice}
+            onChangeStatus={handleChangeStatus}
             onCancelOrder={handleCancelOrder}
           />
         )}
@@ -136,6 +160,10 @@ export default function AdminOrdersPage() {
         <PriceInputModal 
           order={selectedOrderForPrice} 
           onSavePrice={handleSavePrice}
+        />
+        <StatusUpdateModal 
+          order={selectedOrderForStatus} 
+          onSaveStatus={handleSaveStatus}
         />
       </div>
     </div>
