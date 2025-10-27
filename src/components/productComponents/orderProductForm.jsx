@@ -3,6 +3,7 @@ import productsData from "../../json/products.json";
 import { useOrder } from "../../context/OrderContext";
 import { useAuthWithBackend } from "../../hooks/useAuthWithBackend";
 import { orderApi } from "../../services/orderApi";
+import toast from "../../utils/toast";
 import PrintBiasaForm from "../productFormComponents/PrintBiasaForm";
 import BukuForm from "../productFormComponents/BukuForm";
 import UndanganForm from "../productFormComponents/UndanganForm";
@@ -57,7 +58,7 @@ export default function OrderProductForm({ productId }) {
 
   const handleFormSubmit = async (formData) => {
     if (!isAuthenticated) {
-      alert('Please login to place an order');
+      toast.warning('Please login to place an order');
       return;
     }
 
@@ -86,11 +87,15 @@ export default function OrderProductForm({ productId }) {
       
       // Reset the form and navigate to orders page
       resetOrder();
-      alert('Order placed successfully! Waiting for admin to set the price.');
-      navigate('/my-order');
+      toast.success('Order placed successfully! Waiting for admin to set the price.');
+      
+      // Delay navigation to show toast
+      setTimeout(() => {
+        navigate('/my-order');
+      }, 1000);
     } catch (error) {
       console.error('Error creating order:', error);
-      alert('Failed to place order. Please try again.');
+      toast.error('Failed to place order. Please try again.');
     } finally {
       setIsSubmitting(false);
     }

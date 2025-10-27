@@ -3,6 +3,7 @@ import OrdersTable from "../components/myOrderComponents/OrdersTable";
 import OrderDetailModal from "../components/myOrderComponents/OrderDetailModal";
 import { useAuthWithBackend } from "../hooks/useAuthWithBackend";
 import { orderApi } from "../services/orderApi";
+import toast from "../utils/toast";
 
 export default function MyOrderPage() {
   const { isAuthenticated, user, backendUser } = useAuthWithBackend();
@@ -45,9 +46,11 @@ export default function MyOrderPage() {
       setOrders(orders.map(order => 
         order.id === orderId ? { ...order, status: "cancelled" } : order
       ));
+      
+      toast.success('Order cancelled successfully');
     } catch (err) {
       console.error('Error cancelling order:', err);
-      alert('Failed to cancel order. Please try again.');
+      toast.error('Failed to cancel order. Please try again.');
     }
   };
 
