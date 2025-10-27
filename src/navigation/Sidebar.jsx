@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import navData from '../json/navItems.json';
-import { useAuth0 } from '@auth0/auth0-react';
+import { useAuthWithBackend } from '../hooks/useAuthWithBackend';
 
 export default function Sidebar() {
-  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
+  const { loginWithRedirect, logout, isAuthenticated, user, isSyncing } = useAuthWithBackend();
 
   return (
     <div className="drawer-side">
