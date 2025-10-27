@@ -3,7 +3,19 @@ import navData from '../json/navItems.json';
 import { useAuthWithBackend } from '../hooks/useAuthWithBackend';
 
 export default function Sidebar() {
-  const { loginWithRedirect, logout, isAuthenticated, user, isSyncing } = useAuthWithBackend();
+  const { loginWithRedirect, logout, isAuthenticated, user, isSyncing, backendUser } = useAuthWithBackend();
+
+  // Filter navigation items based on authentication and user role
+  const visibleNavItems = navData.navItems.filter((item) => {
+    // If not authenticated, only show items that don't require auth
+    if (!isAuthenticated) {
+      return !item.requiresAuth;
+    }
+    
+    // If authenticated, check if user's role is in the allowed roles
+    const userRole = backendUser?.role || 'customer';
+    return item.allowedRoles.includes(userRole);
+  });
 
   return (
     <div className="drawer-side">
@@ -14,7 +26,7 @@ export default function Sidebar() {
       ></label>
       <ul className="menu bg-base-200 min-h-full w-80 p-4">
         {/* Navigation Items */}
-        {navData.navItems.map((item) => (
+        {visibleNavItems.map((item) => (
           <li key={item.id}>
             <Link to={item.path}>{item.label}</Link>
           </li>
