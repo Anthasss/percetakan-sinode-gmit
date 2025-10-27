@@ -1,46 +1,31 @@
-import { API_BASE_URL } from './config';
+import { axiosInstance } from './config';
 
 export const userApi = {
   createOrGet: async (userData) => {
-    const response = await fetch(`${API_BASE_URL}/api/users`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userData),
-    });
-    
-    if (!response.ok) {
-      throw new Error(`Failed to create/get user: ${response.statusText}`);
+    try {
+      const response = await axiosInstance.post('/api/users', userData);
+      return response.data;
+    } catch (error) {
+      throw new Error(`Failed to create/get user: ${error.response?.statusText || error.message}`);
     }
-    
-    return response.json();
   },
   
   getById: async (id) => {
-    const response = await fetch(`${API_BASE_URL}/api/users/${id}`);
-    
-    if (!response.ok) {
-      throw new Error(`Failed to get user: ${response.statusText}`);
+    try {
+      const response = await axiosInstance.get(`/api/users/${id}`);
+      return response.data;
+    } catch (error) {
+      throw new Error(`Failed to get user: ${error.response?.statusText || error.message}`);
     }
-    
-    return response.json();
   },
   
   updateRole: async (id, role) => {
-    const response = await fetch(`${API_BASE_URL}/api/users/${id}/role`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ role }),
-    });
-    
-    if (!response.ok) {
-      throw new Error(`Failed to update user role: ${response.statusText}`);
+    try {
+      const response = await axiosInstance.patch(`/api/users/${id}/role`, { role });
+      return response.data;
+    } catch (error) {
+      throw new Error(`Failed to update user role: ${error.response?.statusText || error.message}`);
     }
-    
-    return response.json();
   },
 };
 

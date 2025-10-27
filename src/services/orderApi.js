@@ -1,91 +1,58 @@
-import { API_BASE_URL } from './config';
+import { axiosInstance } from './config';
 
 export const orderApi = {
   create: async (orderData) => {
-    const response = await fetch(`${API_BASE_URL}/api/orders`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(orderData),
-    });
-    
-    if (!response.ok) {
-      throw new Error(`Failed to create order: ${response.statusText}`);
+    try {
+      const response = await axiosInstance.post('/api/orders', orderData);
+      return response.data;
+    } catch (error) {
+      throw new Error(`Failed to create order: ${error.response?.statusText || error.message}`);
     }
-    
-    return response.json();
   },
 
   getAll: async (params = {}) => {
-    const queryParams = new URLSearchParams();
-    
-    if (params.userId) queryParams.append('userId', params.userId);
-    if (params.status) queryParams.append('status', params.status);
-    if (params.productId) queryParams.append('productId', params.productId);
-    
-    const url = `${API_BASE_URL}/api/orders${queryParams.toString() ? `?${queryParams.toString()}` : ''}`;
-    const response = await fetch(url);
-    
-    if (!response.ok) {
-      throw new Error(`Failed to fetch orders: ${response.statusText}`);
+    try {
+      const response = await axiosInstance.get('/api/orders', { params });
+      return response.data;
+    } catch (error) {
+      throw new Error(`Failed to fetch orders: ${error.response?.statusText || error.message}`);
     }
-    
-    return response.json();
   },
 
   getById: async (id) => {
-    const response = await fetch(`${API_BASE_URL}/api/orders/${id}`);
-    
-    if (!response.ok) {
-      throw new Error(`Failed to fetch order: ${response.statusText}`);
+    try {
+      const response = await axiosInstance.get(`/api/orders/${id}`);
+      return response.data;
+    } catch (error) {
+      throw new Error(`Failed to fetch order: ${error.response?.statusText || error.message}`);
     }
-    
-    return response.json();
   },
 
   updatePrice: async (id, price) => {
-    const response = await fetch(`${API_BASE_URL}/api/orders/${id}/price`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ price }),
-    });
-    
-    if (!response.ok) {
-      throw new Error(`Failed to update order price: ${response.statusText}`);
+    try {
+      const response = await axiosInstance.patch(`/api/orders/${id}/price`, { price });
+      return response.data;
+    } catch (error) {
+      throw new Error(`Failed to update order price: ${error.response?.statusText || error.message}`);
     }
-    
-    return response.json();
   },
 
   update: async (id, updateData) => {
-    const response = await fetch(`${API_BASE_URL}/api/orders/${id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(updateData),
-    });
-    
-    if (!response.ok) {
-      throw new Error(`Failed to update order: ${response.statusText}`);
+    try {
+      const response = await axiosInstance.patch(`/api/orders/${id}`, updateData);
+      return response.data;
+    } catch (error) {
+      throw new Error(`Failed to update order: ${error.response?.statusText || error.message}`);
     }
-    
-    return response.json();
   },
 
   delete: async (id) => {
-    const response = await fetch(`${API_BASE_URL}/api/orders/${id}`, {
-      method: 'DELETE',
-    });
-    
-    if (!response.ok) {
-      throw new Error(`Failed to delete order: ${response.statusText}`);
+    try {
+      const response = await axiosInstance.delete(`/api/orders/${id}`);
+      return response.data;
+    } catch (error) {
+      throw new Error(`Failed to delete order: ${error.response?.statusText || error.message}`);
     }
-    
-    return response.json();
   },
 };
 
