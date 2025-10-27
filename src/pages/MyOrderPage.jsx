@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import OrdersTable from "../components/myOrderComponents/OrdersTable";
 import OrderDetailModal from "../components/myOrderComponents/OrderDetailModal";
 import { useAuthWithBackend } from "../hooks/useAuthWithBackend";
-import apiClient from "../services/api";
+import { orderApi } from "../services/orderApi";
 
 export default function MyOrderPage() {
   const { isAuthenticated, user, backendUser } = useAuthWithBackend();
@@ -24,7 +24,7 @@ export default function MyOrderPage() {
         setError(null);
         
         const userId = user.sub;
-        const fetchedOrders = await apiClient.orders.getAll({ userId });
+        const fetchedOrders = await orderApi.getAll({ userId });
         setOrders(fetchedOrders);
       } catch (err) {
         console.error('Error fetching orders:', err);
@@ -39,7 +39,7 @@ export default function MyOrderPage() {
 
   const handleCancelOrder = async (orderId) => {
     try {
-      await apiClient.orders.update(orderId, { status: "cancelled" });
+      await orderApi.update(orderId, { status: "cancelled" });
       
       // Update local state
       setOrders(orders.map(order => 
