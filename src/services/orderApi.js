@@ -12,7 +12,9 @@ export const orderApi = {
       });
       return response.data;
     } catch (error) {
-      throw new Error(`Failed to create order: ${error.response?.statusText || error.message}`);
+      const errorMsg = error.response?.data?.message || error.response?.statusText || error.message;
+      console.error('Failed to create order:', errorMsg, error);
+      throw new Error(`Failed to create order: ${errorMsg}`);
     }
   },
 
@@ -21,7 +23,9 @@ export const orderApi = {
       const response = await axiosInstance.get('/api/orders', { params });
       return response.data;
     } catch (error) {
-      throw new Error(`Failed to fetch orders: ${error.response?.statusText || error.message}`);
+      const errorMsg = error.response?.data?.message || error.response?.statusText || error.message;
+      console.error('Failed to fetch orders:', errorMsg, error);
+      throw new Error(`Failed to fetch orders: ${errorMsg}`);
     }
   },
 
@@ -30,7 +34,9 @@ export const orderApi = {
       const response = await axiosInstance.get(`/api/orders/${id}`);
       return response.data;
     } catch (error) {
-      throw new Error(`Failed to fetch order: ${error.response?.statusText || error.message}`);
+      const errorMsg = error.response?.data?.message || error.response?.statusText || error.message;
+      console.error('Failed to fetch order:', errorMsg, error);
+      throw new Error(`Failed to fetch order: ${errorMsg}`);
     }
   },
 
@@ -39,7 +45,9 @@ export const orderApi = {
       const response = await axiosInstance.patch(`/api/orders/${id}/price`, { price });
       return response.data;
     } catch (error) {
-      throw new Error(`Failed to update order price: ${error.response?.statusText || error.message}`);
+      const errorMsg = error.response?.data?.message || error.response?.statusText || error.message;
+      console.error('Failed to update order price:', errorMsg, error);
+      throw new Error(`Failed to update order price: ${errorMsg}`);
     }
   },
 
@@ -48,7 +56,9 @@ export const orderApi = {
       const response = await axiosInstance.patch(`/api/orders/${id}`, updateData);
       return response.data;
     } catch (error) {
-      throw new Error(`Failed to update order: ${error.response?.statusText || error.message}`);
+      const errorMsg = error.response?.data?.message || error.response?.statusText || error.message;
+      console.error('Failed to update order:', errorMsg, error);
+      throw new Error(`Failed to update order: ${errorMsg}`);
     }
   },
 
@@ -57,7 +67,9 @@ export const orderApi = {
       const response = await axiosInstance.delete(`/api/orders/${id}`);
       return response.data;
     } catch (error) {
-      throw new Error(`Failed to delete order: ${error.response?.statusText || error.message}`);
+      const errorMsg = error.response?.data?.message || error.response?.statusText || error.message;
+      console.error('Failed to delete order:', errorMsg, error);
+      throw new Error(`Failed to delete order: ${errorMsg}`);
     }
   },
 };
