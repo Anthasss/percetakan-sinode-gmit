@@ -11,6 +11,11 @@ export default function OrderDetailModal({ order }) {
 
   const getStatusBadge = (status) => {
     const statusColors = {
+      "pending": "badge-info",
+      "processing": "badge-warning",
+      "completed": "badge-success",
+      "cancelled": "badge-error",
+      // Legacy Indonesian status
       "Sedang Diproses": "badge-warning",
       "Selesai": "badge-success",
       "Menunggu Pembayaran": "badge-info",
@@ -19,7 +24,22 @@ export default function OrderDetailModal({ order }) {
     return statusColors[status] || "badge-ghost";
   };
 
+  const getStatusLabel = (status) => {
+    const statusLabels = {
+      "pending": "Menunggu Pembayaran",
+      "processing": "Sedang Diproses",
+      "completed": "Selesai",
+      "cancelled": "Dibatalkan"
+    };
+    return statusLabels[status] || status;
+  };
+
   if (!order) return null;
+
+  const specifications = order.orderSpecifications || order.details || {};
+  const productTitle = order.productTitle || order.product?.title || `Product #${order.productId}`;
+  const quantity = order.orderSpecifications?.quantity || order.quantity || '-';
+  const orderDate = order.createdAt || order.orderDate;
 
   return (
     <dialog id="order_detail_modal" className="modal">
@@ -30,41 +50,48 @@ export default function OrderDetailModal({ order }) {
           </button>
         </form>
         <div>
-          <h3 className="font-bold text-2xl mb-4">Detail Pesanan #{order.id}</h3>
+          <h3 className="font-bold text-2xl mb-4">Detail Pesanan</h3>
           
           <div className="space-y-3">
             <div className="grid grid-cols-2 gap-2">
+              <div className="font-semibold">Order ID:</div>
+              <div className="text-sm break-all">{order.id}</div>
+              
               <div className="font-semibold">Produk:</div>
-              <div>{order.productTitle}</div>
+              <div>{productTitle}</div>
               
               <div className="font-semibold">Kuantitas:</div>
-              <div>{order.quantity}</div>
+              <div>{quantity}</div>
               
               <div className="font-semibold">Harga:</div>
-              <div>{formatCurrency(order.price)}</div>
+              <div>{order.price ? formatCurrency(order.price) : 'Belum ditentukan'}</div>
               
               <div className="font-semibold">Status:</div>
               <div>
                 <span className={`badge ${getStatusBadge(order.status)}`}>
-                  {order.status}
+                  {getStatusLabel(order.status)}
                 </span>
               </div>
               
               <div className="font-semibold">Tanggal Pesan:</div>
-              <div>{new Date(order.orderDate).toLocaleDateString('id-ID')}</div>
+              <div>{orderDate ? new Date(orderDate).toLocaleDateString('id-ID') : '-'}</div>
             </div>
 
-            <div className="divider"></div>
-            
-            <h4 className="font-bold text-lg">Spesifikasi Pesanan</h4>
-            <div className="bg-base-200 p-4 rounded-lg space-y-2">
-              {Object.entries(order.details).map(([key, value]) => (
-                <div key={key} className="grid grid-cols-2 gap-2">
-                  <div className="font-semibold">{key}:</div>
-                  <div>{value}</div>
+            {Object.keys(specifications).length > 0 && (
+              <>
+                <div className="divider"></div>
+                
+                <h4 className="font-bold text-lg">Spesifikasi Pesanan</h4>
+                <div className="bg-base-200 p-4 rounded-lg space-y-2">
+                  {Object.entries(specifications).map(([key, value]) => (
+                    <div key={key} className="grid grid-cols-2 gap-2">
+                      <div className="font-semibold capitalize">{key}:</div>
+                      <div>{typeof value === 'object' ? JSON.stringify(value) : value}</div>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </>
+            )}
           </div>
         </div>
       </div>

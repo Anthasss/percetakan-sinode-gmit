@@ -9,12 +9,27 @@ export default function OrdersTable({ orders, onViewDetail, onCancelOrder }) {
 
   const getStatusBadge = (status) => {
     const statusColors = {
+      "pending": "badge-info",
+      "processing": "badge-warning",
+      "completed": "badge-success",
+      "cancelled": "badge-error",
+      // Legacy Indonesian status (for backward compatibility)
       "Sedang Diproses": "badge-warning",
       "Selesai": "badge-success",
       "Menunggu Pembayaran": "badge-info",
       "Dibatalkan": "badge-error"
     };
     return statusColors[status] || "badge-ghost";
+  };
+
+  const getStatusLabel = (status) => {
+    const statusLabels = {
+      "pending": "Menunggu Pembayaran",
+      "processing": "Sedang Diproses",
+      "completed": "Selesai",
+      "cancelled": "Dibatalkan"
+    };
+    return statusLabels[status] || status;
   };
 
   return (
@@ -34,12 +49,12 @@ export default function OrdersTable({ orders, onViewDetail, onCancelOrder }) {
           {orders.map((order, index) => (
             <tr key={order.id}>
               <td>{index + 1}</td>
-              <td className="font-semibold">{order.productTitle}</td>
-              <td>{order.quantity}</td>
-              <td>{formatCurrency(order.price)}</td>
+              <td className="font-semibold">{order.productTitle || order.product?.title || `Product #${order.productId}`}</td>
+              <td>{order.orderSpecifications?.quantity || order.quantity || '-'}</td>
+              <td>{order.price ? formatCurrency(order.price) : 'Belum ditentukan'}</td>
               <td>
                 <span className={`badge ${getStatusBadge(order.status)}`}>
-                  {order.status}
+                  {getStatusLabel(order.status)}
                 </span>
               </td>
               <td>
@@ -50,7 +65,8 @@ export default function OrdersTable({ orders, onViewDetail, onCancelOrder }) {
                   >
                     Detail
                   </button>
-                  {order.status !== "Dibatalkan" && order.status !== "Selesai" && (
+                  {order.status !== "cancelled" && order.status !== "completed" && 
+                   order.status !== "Dibatalkan" && order.status !== "Selesai" && (
                     <button 
                       className="btn btn-sm btn-error"
                       onClick={() => onCancelOrder(order.id)}
