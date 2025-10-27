@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import apiClient from '../services/api';
+import { userApi } from '../services/userApi';
 
 export const useAuthWithBackend = () => {
   const auth0 = useAuth0();
@@ -13,7 +13,7 @@ export const useAuthWithBackend = () => {
       if (isAuthenticated && user && !isLoading) {
         setIsSyncing(true);
         try {
-          const userData = await apiClient.users.createOrGet({
+          const userData = await userApi.createOrGet({
             id: user.sub,
             name: user.name || user.email,
           });
