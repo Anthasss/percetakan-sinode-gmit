@@ -13,7 +13,6 @@ export const orderApi = {
       return response.data;
     } catch (error) {
       const errorMsg = error.response?.data?.message || error.response?.statusText || error.message;
-      console.error('Failed to create order:', errorMsg, error);
       throw new Error(`Failed to create order: ${errorMsg}`);
     }
   },
@@ -24,7 +23,6 @@ export const orderApi = {
       return response.data;
     } catch (error) {
       const errorMsg = error.response?.data?.message || error.response?.statusText || error.message;
-      console.error('Failed to fetch orders:', errorMsg, error);
       throw new Error(`Failed to fetch orders: ${errorMsg}`);
     }
   },
@@ -35,7 +33,6 @@ export const orderApi = {
       return response.data;
     } catch (error) {
       const errorMsg = error.response?.data?.message || error.response?.statusText || error.message;
-      console.error('Failed to fetch order:', errorMsg, error);
       throw new Error(`Failed to fetch order: ${errorMsg}`);
     }
   },
@@ -46,7 +43,6 @@ export const orderApi = {
       return response.data;
     } catch (error) {
       const errorMsg = error.response?.data?.message || error.response?.statusText || error.message;
-      console.error('Failed to update order price:', errorMsg, error);
       throw new Error(`Failed to update order price: ${errorMsg}`);
     }
   },
@@ -57,7 +53,6 @@ export const orderApi = {
       return response.data;
     } catch (error) {
       const errorMsg = error.response?.data?.message || error.response?.statusText || error.message;
-      console.error('Failed to update order:', errorMsg, error);
       throw new Error(`Failed to update order: ${errorMsg}`);
     }
   },
@@ -68,7 +63,6 @@ export const orderApi = {
       return response.data;
     } catch (error) {
       const errorMsg = error.response?.data?.message || error.response?.statusText || error.message;
-      console.error('Failed to delete order:', errorMsg, error);
       throw new Error(`Failed to delete order: ${errorMsg}`);
     }
   },

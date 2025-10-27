@@ -7,7 +7,6 @@ export const userApi = {
       return response.data;
     } catch (error) {
       const errorMsg = error.response?.data?.message || error.response?.statusText || error.message;
-      console.error('Failed to create/get user:', errorMsg, error);
       throw new Error(`Failed to create/get user: ${errorMsg}`);
     }
   },
@@ -18,7 +17,6 @@ export const userApi = {
       return response.data;
     } catch (error) {
       const errorMsg = error.response?.data?.message || error.response?.statusText || error.message;
-      console.error('Failed to get user:', errorMsg, error);
       throw new Error(`Failed to get user: ${errorMsg}`);
     }
   },
@@ -29,7 +27,6 @@ export const userApi = {
       return response.data;
     } catch (error) {
       const errorMsg = error.response?.data?.message || error.response?.statusText || error.message;
-      console.error('Failed to update user role:', errorMsg, error);
       throw new Error(`Failed to update user role: ${errorMsg}`);
     }
   },
