@@ -10,6 +10,8 @@ import toast from "../../utils/toast";
 export default function AdminOrdersPage() {
   const { isAuthenticated, backendUser } = useAuthWithBackend();
   const [orders, setOrders] = useState([]);
+  const [filteredOrders, setFilteredOrders] = useState([]);
+  const [statusFilter, setStatusFilter] = useState("all");
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [selectedOrderForPrice, setSelectedOrderForPrice] = useState(null);
   const [selectedOrderForStatus, setSelectedOrderForStatus] = useState(null);
@@ -43,9 +45,22 @@ export default function AdminOrdersPage() {
     fetchOrders();
   }, [isAuthenticated]);
 
+  // Filter orders whenever orders or statusFilter changes
+  useEffect(() => {
+    if (statusFilter === "all") {
+      setFilteredOrders(orders);
+    } else {
+      setFilteredOrders(orders.filter(order => order.status === statusFilter));
+    }
+  }, [orders, statusFilter]);
+
   const handleRefresh = () => {
     fetchOrders();
     toast.success('Orders refreshed');
+  };
+
+  const handleStatusFilterChange = (e) => {
+    setStatusFilter(e.target.value);
   };
 
   const handleCancelOrder = async (orderId) => {
@@ -162,6 +177,25 @@ export default function AdminOrdersPage() {
             )}
           </button>
         </div>
+
+        {/* Filter Section */}
+        <div className="mb-6 flex items-center gap-4">
+          <label className="font-medium">Filter by Status:</label>
+          <select 
+            className="select select-bordered w-full max-w-xs"
+            value={statusFilter}
+            onChange={handleStatusFilterChange}
+          >
+            <option value="all">Semua Status</option>
+            <option value="pending">Menunggu harga dari admin</option>
+            <option value="processing">Dalam progres</option>
+            <option value="completed">Siap diambil</option>
+            <option value="cancelled">Dibatalkan</option>
+          </select>
+          <span className="badge badge-neutral">
+            {filteredOrders.length} order{filteredOrders.length !== 1 ? 's' : ''}
+          </span>
+        </div>
         
         {isLoading ? (
           <div className="flex justify-center items-center py-12">
@@ -171,13 +205,17 @@ export default function AdminOrdersPage() {
           <div className="alert alert-error">
             <span>{error}</span>
           </div>
-        ) : orders.length === 0 ? (
+        ) : filteredOrders.length === 0 ? (
           <div className="alert alert-info">
-            <span>No orders found.</span>
+            <span>
+              {statusFilter === "all" 
+                ? "No orders found." 
+                : `No orders found with status "${statusFilter}".`}
+            </span>
           </div>
         ) : (
           <AdminOrdersTable 
-            orders={orders}
+            orders={filteredOrders}
             onViewDetail={handleViewDetail}
             onInputPrice={handleInputPrice}
             onChangeStatus={handleChangeStatus}
