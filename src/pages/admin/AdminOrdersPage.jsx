@@ -17,31 +17,36 @@ export default function AdminOrdersPage() {
   const [error, setError] = useState(null);
 
   // Fetch all orders for admin
+  const fetchOrders = async () => {
+    if (!isAuthenticated) {
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+      setError(null);
+      
+      // Fetch all orders (no filter for admin)
+      const fetchedOrders = await orderApi.getAll();
+      setOrders(fetchedOrders);
+    } catch (err) {
+      console.error('Error fetching orders:', err);
+      setError('Failed to load orders. Please try again later.');
+      toast.error('Failed to load orders');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchOrders = async () => {
-      if (!isAuthenticated) {
-        setIsLoading(false);
-        return;
-      }
-
-      try {
-        setIsLoading(true);
-        setError(null);
-        
-        // Fetch all orders (no filter for admin)
-        const fetchedOrders = await orderApi.getAll();
-        setOrders(fetchedOrders);
-      } catch (err) {
-        console.error('Error fetching orders:', err);
-        setError('Failed to load orders. Please try again later.');
-        toast.error('Failed to load orders');
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
     fetchOrders();
   }, [isAuthenticated]);
+
+  const handleRefresh = () => {
+    fetchOrders();
+    toast.success('Orders refreshed');
+  };
 
   const handleCancelOrder = async (orderId) => {
     try {
@@ -132,7 +137,28 @@ export default function AdminOrdersPage() {
   return (
     <div className="w-full min-h-screen p-4 md:p-8">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl font-bold mb-6">Kelola Pesanan</h1>
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-3xl font-bold">Kelola Pesanan</h1>
+          <button 
+            className="btn btn-primary"
+            onClick={handleRefresh}
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <>
+                <span className="loading loading-spinner loading-sm"></span>
+                Memuat...
+              </>
+            ) : (
+              <>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clipRule="evenodd" />
+                </svg>
+                Refresh
+              </>
+            )}
+          </button>
+        </div>
         
         {isLoading ? (
           <div className="flex justify-center items-center py-12">
