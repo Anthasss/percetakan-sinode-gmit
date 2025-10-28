@@ -40,13 +40,13 @@ export default function HomeCarousel() {
 
   return (
     <Slider {...settings}>
-      <div className="h-64 bg-red-500 flex items-center justify-center">
+      <div className="h-[440px] bg-red-500 flex items-center justify-center">
         <h2 className="text-white text-2xl">Slide 1</h2>
       </div>
-      <div className="h-64 bg-blue-500 flex items-center justify-center">
+      <div className="h-[440px] bg-blue-500 flex items-center justify-center">
         <h2 className="text-white text-2xl">Slide 2</h2>
       </div>
-      <div className="h-64 bg-green-500 flex items-center justify-center">
+      <div className="h-[440px] bg-green-500 flex items-center justify-center">
         <h2 className="text-white text-2xl">Slide 3</h2>
       </div>
     </Slider>
