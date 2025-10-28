@@ -2,6 +2,7 @@ import HomeCarousel from "../components/homeComponents/HomeCarousel"
 import ProductRowContainer from "../components/homeComponents/ProductRowContainer"
 import ProductRow from "../components/homeComponents/ProductRow"
 import ProductRowCard from "../components/homeComponents/ProductRowCard"
+import CustomOrderSection from "../components/homeComponents/CustomOrderSection"
 import productsData from "../json/products.json"
 
 export default function HomePage(){
@@ -31,6 +32,8 @@ export default function HomePage(){
             <ProductRowCard key={product.id} product={product} />
           ))}
         </ProductRow>
+        
+        <CustomOrderSection />
       </ProductRowContainer>
     </div>
   )
