@@ -1,4 +1,4 @@
-export default function OrdersTable({ orders, onViewDetail, onCancelOrder }) {
+export default function OrdersTable({ orders, onViewDetail, onCancelOrder, currentPage = 1, itemsPerPage = 10 }) {
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat('id-ID', {
       style: 'currency',
@@ -46,10 +46,12 @@ export default function OrdersTable({ orders, onViewDetail, onCancelOrder }) {
           </tr>
         </thead>
         <tbody>
-          {orders.map((order, index) => (
-            <tr key={order.id}>
-              <td>{index + 1}</td>
-              <td className="font-semibold">{order.productTitle || order.product?.title || `Product #${order.productId}`}</td>
+          {orders.map((order, index) => {
+            const globalIndex = (currentPage - 1) * itemsPerPage + index + 1;
+            return (
+              <tr key={order.id}>
+                <td>{globalIndex}</td>
+                <td className="font-semibold">{order.productTitle || order.product?.title || `Product #${order.productId}`}</td>
               <td>{order.orderSpecifications?.quantity || order.quantity || '-'}</td>
               <td>{order.price ? formatCurrency(order.price) : 'Belum ditentukan'}</td>
               <td>
@@ -77,7 +79,8 @@ export default function OrdersTable({ orders, onViewDetail, onCancelOrder }) {
                 </div>
               </td>
             </tr>
-          ))}
+            );
+          })}
         </tbody>
       </table>
     </div>

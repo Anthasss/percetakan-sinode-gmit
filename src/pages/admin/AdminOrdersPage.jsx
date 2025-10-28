@@ -17,6 +17,8 @@ export default function AdminOrdersPage() {
   const [selectedOrderForStatus, setSelectedOrderForStatus] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
 
   // Fetch all orders for admin
   const fetchOrders = async () => {
@@ -52,7 +54,20 @@ export default function AdminOrdersPage() {
     } else {
       setFilteredOrders(orders.filter(order => order.status === statusFilter));
     }
+    // Reset to first page when filter changes
+    setCurrentPage(1);
   }, [orders, statusFilter]);
+
+  // Calculate pagination
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentOrders = filteredOrders.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredOrders.length / itemsPerPage);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const handleRefresh = () => {
     fetchOrders();
@@ -214,13 +229,65 @@ export default function AdminOrdersPage() {
             </span>
           </div>
         ) : (
-          <AdminOrdersTable 
-            orders={filteredOrders}
-            onViewDetail={handleViewDetail}
-            onInputPrice={handleInputPrice}
-            onChangeStatus={handleChangeStatus}
-            onCancelOrder={handleCancelOrder}
-          />
+          <>
+            <AdminOrdersTable 
+              orders={currentOrders}
+              onViewDetail={handleViewDetail}
+              onInputPrice={handleInputPrice}
+              onChangeStatus={handleChangeStatus}
+              onCancelOrder={handleCancelOrder}
+              currentPage={currentPage}
+              itemsPerPage={itemsPerPage}
+            />
+            
+            {totalPages > 1 && (
+              <div className="flex justify-center items-center gap-2 mt-6">
+                <button 
+                  className="btn btn-sm"
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  disabled={currentPage === 1}
+                >
+                  Previous
+                </button>
+                
+                <div className="flex gap-1">
+                  {[...Array(totalPages)].map((_, index) => {
+                    const pageNumber = index + 1;
+                    // Show first page, last page, current page, and pages around current
+                    if (
+                      pageNumber === 1 ||
+                      pageNumber === totalPages ||
+                      (pageNumber >= currentPage - 1 && pageNumber <= currentPage + 1)
+                    ) {
+                      return (
+                        <button
+                          key={pageNumber}
+                          className={`btn btn-sm ${currentPage === pageNumber ? 'btn-primary' : ''}`}
+                          onClick={() => handlePageChange(pageNumber)}
+                        >
+                          {pageNumber}
+                        </button>
+                      );
+                    } else if (
+                      pageNumber === currentPage - 2 ||
+                      pageNumber === currentPage + 2
+                    ) {
+                      return <span key={pageNumber} className="px-2">...</span>;
+                    }
+                    return null;
+                  })}
+                </div>
+                
+                <button 
+                  className="btn btn-sm"
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                >
+                  Next
+                </button>
+              </div>
+            )}
+          </>
         )}
 
         <OrderDetailModal order={selectedOrder} />

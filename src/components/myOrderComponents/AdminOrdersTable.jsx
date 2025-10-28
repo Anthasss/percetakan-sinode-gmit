@@ -1,4 +1,4 @@
-export default function AdminOrdersTable({ orders, onViewDetail, onInputPrice, onCancelOrder, onChangeStatus }) {
+export default function AdminOrdersTable({ orders, onViewDetail, onInputPrice, onCancelOrder, onChangeStatus, currentPage = 1, itemsPerPage = 10 }) {
   const formatCurrency = (amount) => {
     if (amount === null || amount === undefined) {
       return '-';
@@ -50,10 +50,12 @@ export default function AdminOrdersTable({ orders, onViewDetail, onInputPrice, o
           </tr>
         </thead>
         <tbody>
-          {orders.map((order, index) => (
-            <tr key={order.id}>
-              <td>{index + 1}</td>
-              <td className="font-medium">{order.user?.name || order.userName || 'Unknown User'}</td>
+          {orders.map((order, index) => {
+            const globalIndex = (currentPage - 1) * itemsPerPage + index + 1;
+            return (
+              <tr key={order.id}>
+                <td>{globalIndex}</td>
+                <td className="font-medium">{order.user?.name || order.userName || 'Unknown User'}</td>
               <td className="font-semibold">{order.productTitle || order.product?.title || `Product #${order.productId}`}</td>
               <td>{order.orderSpecifications?.quantity || order.quantity || '-'}</td>
               <td>{formatCurrency(order.price)}</td>
@@ -98,7 +100,8 @@ export default function AdminOrdersTable({ orders, onViewDetail, onInputPrice, o
                 </div>
               </td>
             </tr>
-          ))}
+            );
+          })}
         </tbody>
       </table>
     </div>

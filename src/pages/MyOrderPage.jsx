@@ -11,6 +11,8 @@ export default function MyOrderPage() {
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
 
   // Fetch orders for the current user
   useEffect(() => {
@@ -37,6 +39,17 @@ export default function MyOrderPage() {
 
     fetchOrders();
   }, [isAuthenticated, user]);
+
+  // Calculate pagination
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentOrders = orders.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(orders.length / itemsPerPage);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const handleCancelOrder = async (orderId) => {
     try {
@@ -88,11 +101,63 @@ export default function MyOrderPage() {
             <span>You don't have any orders yet.</span>
           </div>
         ) : (
-          <OrdersTable 
-            orders={orders}
-            onViewDetail={handleViewDetail}
-            onCancelOrder={handleCancelOrder}
-          />
+          <>
+            <OrdersTable 
+              orders={currentOrders}
+              onViewDetail={handleViewDetail}
+              onCancelOrder={handleCancelOrder}
+              currentPage={currentPage}
+              itemsPerPage={itemsPerPage}
+            />
+            
+            {totalPages > 1 && (
+              <div className="flex justify-center items-center gap-2 mt-6">
+                <button 
+                  className="btn btn-sm"
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  disabled={currentPage === 1}
+                >
+                  Previous
+                </button>
+                
+                <div className="flex gap-1">
+                  {[...Array(totalPages)].map((_, index) => {
+                    const pageNumber = index + 1;
+                    // Show first page, last page, current page, and pages around current
+                    if (
+                      pageNumber === 1 ||
+                      pageNumber === totalPages ||
+                      (pageNumber >= currentPage - 1 && pageNumber <= currentPage + 1)
+                    ) {
+                      return (
+                        <button
+                          key={pageNumber}
+                          className={`btn btn-sm ${currentPage === pageNumber ? 'btn-primary' : ''}`}
+                          onClick={() => handlePageChange(pageNumber)}
+                        >
+                          {pageNumber}
+                        </button>
+                      );
+                    } else if (
+                      pageNumber === currentPage - 2 ||
+                      pageNumber === currentPage + 2
+                    ) {
+                      return <span key={pageNumber} className="px-2">...</span>;
+                    }
+                    return null;
+                  })}
+                </div>
+                
+                <button 
+                  className="btn btn-sm"
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                >
+                  Next
+                </button>
+              </div>
+            )}
+          </>
         )}
 
         <OrderDetailModal order={selectedOrder} />
