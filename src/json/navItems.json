@@ -12,7 +12,7 @@
       "label": "My Order",
       "path": "/my-order",
       "requiresAuth": true,
-      "allowedRoles": ["customer"]
+      "allowedRoles": ["admin", "customer"]
     },
     {
       "id": 3,
