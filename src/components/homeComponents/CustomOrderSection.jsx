@@ -7,7 +7,7 @@ export default function CustomOrderSection() {
 
   return (
     <div className="w-full max-w-4xl mx-auto">
-      <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg shadow-lg p-8 text-white">
+      <div className="bg-gradient-to-r bg-green-500 rounded-lg shadow-lg p-8 text-white">
         <div className="text-center space-y-4">
           <h2 className="text-3xl font-bold">Pesan Barang Custom</h2>
           <p className="text-lg opacity-90">
