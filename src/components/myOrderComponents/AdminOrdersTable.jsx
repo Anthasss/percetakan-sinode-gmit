@@ -70,14 +70,16 @@ export default function AdminOrdersTable({ orders, onViewDetail, onInputPrice, o
                   >
                     Detail
                   </button>
-                  <button 
-                    className="btn btn-sm btn-primary"
-                    onClick={() => onInputPrice(order)}
-                  >
-                    Tetapkan Harga
-                  </button>
-                  {order.status !== "cancelled" && order.status !== "completed" && 
-                   order.status !== "Dibatalkan" && order.status !== "Selesai" && (
+                  {order.status !== "cancelled" && order.status !== "Dibatalkan" && 
+                  order.status !== "completed" && order.status !== "Selesai" && (
+                    <button 
+                      className="btn btn-sm btn-primary"
+                      onClick={() => onInputPrice(order)}
+                    >
+                      Tetapkan Harga
+                    </button>
+                  )}
+                  {order.status !== "cancelled" && order.status !== "Dibatalkan" && (
                     <>
                       <button 
                         className="btn btn-sm btn-accent"
