@@ -83,12 +83,15 @@ export default function AdminOrdersPage() {
     try {
       await orderApi.updatePrice(orderId, price);
       
+      // Automatically set status to processing when price is set
+      await orderApi.update(orderId, { status: "processing" });
+      
       // Update local state
       setOrders(orders.map(order => 
-        order.id === orderId ? { ...order, price: price } : order
+        order.id === orderId ? { ...order, price: price, status: "processing" } : order
       ));
       
-      toast.success('Price updated successfully');
+      toast.success('Price updated and status set to "Dalam progres"');
     } catch (err) {
       console.error('Error updating price:', err);
       toast.error('Failed to update price. Please try again.');
