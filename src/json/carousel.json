@@ -1,0 +1,25 @@
+{
+  "slides": [
+    {
+      "id": 1,
+      "imageUrl": "/carousel/slide1.jpg",
+      "title": "Slide 1",
+      "description": "Welcome to our printing service",
+      "backgroundColor": "#ef4444"
+    },
+    {
+      "id": 2,
+      "imageUrl": "/carousel/slide2.jpg",
+      "title": "Slide 2",
+      "description": "Quality prints at affordable prices",
+      "backgroundColor": "#3b82f6"
+    },
+    {
+      "id": 3,
+      "imageUrl": "/carousel/slide3.jpg",
+      "title": "Slide 3",
+      "description": "Fast delivery guaranteed",
+      "backgroundColor": "#22c55e"
+    }
+  ]
+}

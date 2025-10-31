@@ -1,7 +1,11 @@
-import { ChevronLeftCircle, ChevronRightCircle } from "lucide-react"
+import { ChevronLeftCircle, ChevronRightCircle, Edit } from "lucide-react"
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
+import { useAuthWithBackend } from "../../hooks/useAuthWithBackend";
+import carouselData from "../../json/carousel.json";
 
 function PrevArrow({ onClick }) {
   return (
@@ -28,27 +32,84 @@ function NextArrow({ onClick }) {
 }
 
 export default function HomeCarousel() {
+  const navigate = useNavigate();
+  const { isAuthenticated, backendUser } = useAuthWithBackend();
+  const [slides, setSlides] = useState(carouselData.slides);
+  const isAdmin = isAuthenticated && backendUser?.role === 'admin';
+
   const settings = {
     dots: true,
-    infinite: true,
+    infinite: slides.length > 1,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
     prevArrow: <PrevArrow />,
-    nextArrow: <NextArrow />
+    nextArrow: <NextArrow />,
+    autoplay: true,
+    autoplaySpeed: 5000,
   };
 
+  // Load saved slides on mount
+  useEffect(() => {
+    const savedSlides = localStorage.getItem('carouselSlides');
+    if (savedSlides) {
+      setSlides(JSON.parse(savedSlides));
+    }
+  }, []);
+
   return (
-    <Slider {...settings}>
-      <div className="h-[440px] bg-red-500 flex items-center justify-center">
-        <h2 className="text-white text-2xl">Slide 1</h2>
-      </div>
-      <div className="h-[440px] bg-blue-500 flex items-center justify-center">
-        <h2 className="text-white text-2xl">Slide 2</h2>
-      </div>
-      <div className="h-[440px] bg-green-500 flex items-center justify-center">
-        <h2 className="text-white text-2xl">Slide 3</h2>
-      </div>
-    </Slider>
+    <div className="relative">
+      {/* Admin Edit Button */}
+      {isAdmin && (
+        <button
+          className="absolute top-4 right-4 z-20 btn btn-primary btn-sm gap-2"
+          onClick={() => navigate('/admin/carousel')}
+        >
+          <Edit size={16} />
+          Edit Carousel
+        </button>
+      )}
+
+      {/* Carousel */}
+      <Slider {...settings}>
+        {slides.map((slide) => (
+          <div key={slide.id}>
+            <div
+              className="h-[440px] flex items-center justify-center relative"
+              style={{ backgroundColor: slide.backgroundColor }}
+            >
+              {slide.imageUrl && slide.imageUrl.startsWith('/') ? (
+                <img
+                  src={slide.imageUrl}
+                  alt={slide.title}
+                  className="w-full h-full object-cover"
+                />
+              ) : slide.imageUrl ? (
+                <img
+                  src={slide.imageUrl}
+                  alt={slide.title}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <div className="text-center text-white">
+                  <h2 className="text-4xl font-bold mb-2">{slide.title}</h2>
+                  {slide.description && (
+                    <p className="text-xl">{slide.description}</p>
+                  )}
+                </div>
+              )}
+              {slide.imageUrl && (
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent text-white p-8">
+                  <h2 className="text-3xl font-bold mb-2">{slide.title}</h2>
+                  {slide.description && (
+                    <p className="text-lg">{slide.description}</p>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </Slider>
+    </div>
   )
 }
