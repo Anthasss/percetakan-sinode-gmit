@@ -1,14 +1,12 @@
 import { useState, useEffect } from "react";
-import { Save, X as XIcon, ArrowLeft } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { Save } from "lucide-react";
 import CarouselSlideEditor from "../../components/homeComponents/CarouselSlideEditor";
 import { useAuthWithBackend } from "../../hooks/useAuthWithBackend";
 import carouselData from "../../json/carousel.json";
 import toast from "../../utils/toast";
 
 export default function ManagePromoPage() {
-  const navigate = useNavigate();
-  const { isAuthenticated, backendUser } = useAuthWithBackend();
+  const { isAuthenticated, backendUser, isSyncing } = useAuthWithBackend();
   const [slides, setSlides] = useState([]);
   const [hasChanges, setHasChanges] = useState(false);
 
@@ -45,15 +43,14 @@ export default function ManagePromoPage() {
     toast.success("Carousel changes saved!");
   };
 
-  const handleCancel = () => {
-    if (hasChanges) {
-      if (window.confirm("You have unsaved changes. Are you sure you want to leave?")) {
-        navigate('/');
-      }
-    } else {
-      navigate('/');
-    }
-  };
+  // Show loading while checking authentication
+  if (isSyncing || (isAuthenticated && !backendUser)) {
+    return (
+      <div className="w-full min-h-screen p-4 md:p-8 flex items-center justify-center">
+        <span className="loading loading-spinner loading-lg"></span>
+      </div>
+    );
+  }
 
   // Check if user is admin
   if (!isAuthenticated || backendUser?.role !== 'admin') {
@@ -72,17 +69,8 @@ export default function ManagePromoPage() {
       <div className="max-w-7xl mx-auto">
         {/* Header with Actions */}
         <div className="mb-8">
-          <div className="flex items-center gap-4 mb-4">
-            <button
-              className="btn btn-ghost btn-circle"
-              onClick={handleCancel}
-            >
-              <ArrowLeft size={24} />
-            </button>
+          <div className="flex items-center justify-between mb-4">
             <h1 className="text-3xl font-bold">Manage Carousel</h1>
-          </div>
-          
-          <div className="flex gap-3 justify-end">
             <button
               className="btn btn-success gap-2"
               onClick={handleSaveChanges}
@@ -91,22 +79,7 @@ export default function ManagePromoPage() {
               <Save size={20} />
               Save Changes
             </button>
-            <button
-              className="btn btn-error gap-2"
-              onClick={handleCancel}
-            >
-              <XIcon size={20} />
-              Cancel
-            </button>
           </div>
-        </div>
-
-        {/* Info Alert */}
-        <div className="alert alert-info mb-6">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="stroke-current shrink-0 w-6 h-6">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-          </svg>
-          <span>Click on a slide to delete it, or add a new slide by clicking the + button.</span>
         </div>
 
         {/* Slides Grid */}
