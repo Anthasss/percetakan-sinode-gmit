@@ -23,8 +23,8 @@
     },
     {
       "id": 4,
-      "label": "Manage Carousel",
-      "path": "/admin/carousel",
+      "label": "Manage Promo",
+      "path": "/admin/promo",
       "requiresAuth": true,
       "allowedRoles": ["admin"]
     }

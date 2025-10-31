@@ -1,10 +1,8 @@
-import { ChevronLeftCircle, ChevronRightCircle, Edit } from "lucide-react"
+import { ChevronLeftCircle, ChevronRightCircle } from "lucide-react"
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
-import { useAuthWithBackend } from "../../hooks/useAuthWithBackend";
 import carouselData from "../../json/carousel.json";
 
 function PrevArrow({ onClick }) {
@@ -32,10 +30,7 @@ function NextArrow({ onClick }) {
 }
 
 export default function HomeCarousel() {
-  const navigate = useNavigate();
-  const { isAuthenticated, backendUser } = useAuthWithBackend();
   const [slides, setSlides] = useState(carouselData.slides);
-  const isAdmin = isAuthenticated && backendUser?.role === 'admin';
 
   const settings = {
     dots: true,
@@ -59,17 +54,6 @@ export default function HomeCarousel() {
 
   return (
     <div className="relative">
-      {/* Admin Edit Button */}
-      {isAdmin && (
-        <button
-          className="absolute top-4 right-4 z-20 btn btn-primary btn-sm gap-2"
-          onClick={() => navigate('/admin/carousel')}
-        >
-          <Edit size={16} />
-          Edit Carousel
-        </button>
-      )}
-
       {/* Carousel */}
       <Slider {...settings}>
         {slides.map((slide) => (

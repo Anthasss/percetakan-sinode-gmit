@@ -7,7 +7,7 @@ import ProductPage from "./pages/ProductPage";
 import MyOrderPage from "./pages/MyOrderPage";
 
 import AdminOrdersPage from "./pages/admin/AdminOrdersPage";
-import ManageCarouselPage from "./pages/admin/ManageCarouselPage";
+import ManagePromoPage from "./pages/admin/ManagePromoPage";
 
 function App() {
   console.log("Auth0 Domain:", import.meta.env.VITE_AUTH0_DOMAIN);
@@ -34,8 +34,8 @@ function App() {
             element={<AdminOrdersPage />}
           />
           <Route
-            path="/admin/carousel"
-            element={<ManageCarouselPage />}
+            path="/admin/promo"
+            element={<ManagePromoPage />}
           />
         </Routes>
       </Layout>

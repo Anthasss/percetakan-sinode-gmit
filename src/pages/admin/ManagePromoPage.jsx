@@ -6,7 +6,7 @@ import { useAuthWithBackend } from "../../hooks/useAuthWithBackend";
 import carouselData from "../../json/carousel.json";
 import toast from "../../utils/toast";
 
-export default function ManageCarouselPage() {
+export default function ManagePromoPage() {
   const navigate = useNavigate();
   const { isAuthenticated, backendUser } = useAuthWithBackend();
   const [slides, setSlides] = useState([]);
