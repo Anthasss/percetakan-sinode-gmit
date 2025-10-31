@@ -66,13 +66,13 @@ export default function HomeCarousel() {
                 <img
                   src={slide.imageUrl}
                   alt={slide.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
                 />
               ) : slide.imageUrl ? (
                 <img
                   src={slide.imageUrl}
                   alt={slide.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
                 />
               ) : (
                 <div className="text-center text-white">

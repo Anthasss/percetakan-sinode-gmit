@@ -112,13 +112,13 @@ export default function ManagePromoPage() {
                 <img
                   src={slide.imageUrl}
                   alt={slide.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
                 />
               ) : slide.imageUrl ? (
                 <img
                   src={slide.imageUrl}
                   alt={slide.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
                 />
               ) : null}
               <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-white p-4">
