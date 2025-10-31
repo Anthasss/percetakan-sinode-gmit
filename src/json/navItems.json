@@ -20,6 +20,13 @@
       "path": "/admin/order",
       "requiresAuth": true,
       "allowedRoles": ["admin"]
+    },
+    {
+      "id": 4,
+      "label": "Manage Promo",
+      "path": "/admin/promo",
+      "requiresAuth": true,
+      "allowedRoles": ["admin"]
     }
   ]
 }
