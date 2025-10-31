@@ -134,11 +134,7 @@ export default function CarouselSlideEditor({ slide, onDelete, onAdd, isAddSlide
     <div className="relative">
       <button
         className="absolute top-2 right-2 z-20 btn btn-error btn-sm btn-circle"
-        onClick={() => {
-          if (window.confirm('Are you sure you want to delete this slide?')) {
-            onDelete(slide.id);
-          }
-        }}
+        onClick={() => onDelete(slide.id)}
       >
         <X size={20} />
       </button>

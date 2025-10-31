@@ -9,6 +9,7 @@ export default function ManagePromoPage() {
   const { isAuthenticated, backendUser, isSyncing } = useAuthWithBackend();
   const [slides, setSlides] = useState([]);
   const [hasChanges, setHasChanges] = useState(false);
+  const [slideToDelete, setSlideToDelete] = useState(null);
 
   useEffect(() => {
     // Load saved slides from localStorage or use default
@@ -25,9 +26,22 @@ export default function ManagePromoPage() {
       toast.error("Cannot delete the last slide");
       return;
     }
-    setSlides(slides.filter(slide => slide.id !== slideId));
-    setHasChanges(true);
-    toast.success("Slide deleted");
+    // Show confirmation dialog
+    setSlideToDelete(slideId);
+    document.getElementById('delete_slide_modal').showModal();
+  };
+
+  const confirmDeleteSlide = () => {
+    if (slideToDelete) {
+      setSlides(slides.filter(slide => slide.id !== slideToDelete));
+      setHasChanges(true);
+      toast.success("Slide deleted");
+      setSlideToDelete(null);
+    }
+  };
+
+  const cancelDeleteSlide = () => {
+    setSlideToDelete(null);
   };
 
   const handleAddSlide = (newSlide) => {
@@ -125,15 +139,30 @@ export default function ManagePromoPage() {
           </div>
         </div>
 
-        {/* Unsaved Changes Warning */}
-        {hasChanges && (
-          <div className="alert alert-warning mt-6">
-            <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-            </svg>
-            <span>You have unsaved changes. Don't forget to save!</span>
+        {/* Delete Confirmation Modal */}
+        <dialog id="delete_slide_modal" className="modal">
+          <div className="modal-box">
+            <h3 className="font-bold text-lg">Confirm Delete</h3>
+            <p className="py-4">Are you sure you want to delete this slide? This action cannot be undone.</p>
+            <div className="modal-action">
+              <button
+                className="btn btn-error"
+                onClick={() => {
+                  confirmDeleteSlide();
+                  document.getElementById('delete_slide_modal').close();
+                }}
+              >
+                Delete
+              </button>
+              <form method="dialog">
+                <button className="btn" onClick={cancelDeleteSlide}>Cancel</button>
+              </form>
+            </div>
           </div>
-        )}
+          <form method="dialog" className="modal-backdrop">
+            <button onClick={cancelDeleteSlide}>close</button>
+          </form>
+        </dialog>
       </div>
     </div>
   );
