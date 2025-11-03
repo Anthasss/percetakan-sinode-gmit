@@ -15,15 +15,15 @@ export default function ProductPage() {
 
   return (
     <OrderProvider>
-      <div className="w-full min-h-screen p-8 flex gap-16">
-        {/* left side */}
+      <div className="w-full min-h-screen p-4 md:p-8 flex flex-col-reverse md:flex-row gap-8 md:gap-16">
+        {/* left side - Bottom on mobile, Left on desktop */}
         <div className="flex-1 flex flex-col rounded-lg">
           <ProductTitle productId={productId} />
           <OrderProductForm productId={productId} />
         </div>
 
-        {/* right side */}
-        <div className="w-auto h-full rounded-lg">
+        {/* right side - Top on mobile, Right on desktop */}
+        <div className="w-full md:w-auto h-full rounded-lg">
           <ProductImages productId={productId} />
           {!hideQuantityPicker && <QuantityPicker productId={productId} />}
         </div>

@@ -87,7 +87,7 @@
     {
       "id": 13,
       "title": "Sablon Piring",
-      "image": ["https://s3.nevaobjects.id/sinodegmitobject/p_sablonPiring.webp"],
+      "image": ["https://s3.nevaobjects.id/sinodegmitobject/p_sablonPiring.webp", "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp", "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp", "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp", "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp", "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp", "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp", "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp", "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp", "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"],
       "category": "others",
       "formComponent": "SablonPiringForm"
     },
