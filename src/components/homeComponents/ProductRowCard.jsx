@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 export default function ProductRowCard({ product }) {
   return (
     <div className="card bg-base-100 w-full shadow-sm">
-      <figure>
+      <figure className="h-48 bg-base-200">
         <img
-          src={product.image}
+          src={product.image[0]}
           alt={product.title}
+          className="w-full h-full object-cover"
         />
       </figure>
       <div className="card-body">
