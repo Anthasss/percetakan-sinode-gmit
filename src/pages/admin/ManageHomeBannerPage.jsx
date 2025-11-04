@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Save } from "lucide-react";
-import CarouselSlideEditor from "../../components/homeComponents/CarouselSlideEditor";
-import CarouselSlideCard from "../../components/homeComponents/CarouselSlideCard";
+import CarouselSlideEditor from "../../components/homeComponents/BannerSlideEditor";
+import CarouselSlideCard from "../../components/homeComponents/BannerSlideCard";
 import DeleteSlideModal from "../../components/homeComponents/DeleteSlideModal";
 import { useAuthWithBackend } from "../../hooks/useAuthWithBackend";
 import carouselData from "../../json/carousel.json";

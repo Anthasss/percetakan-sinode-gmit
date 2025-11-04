@@ -1,4 +1,4 @@
-import CarouselSlideEditor from "./CarouselSlideEditor";
+import CarouselSlideEditor from "./BannerSlideEditor";
 
 export default function CarouselSlideCard({ slide, onDelete }) {
   return (
