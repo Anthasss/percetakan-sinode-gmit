@@ -59,36 +59,14 @@ export default function HomeBanner() {
         {slides.map((slide) => (
           <div key={slide.id}>
             <div
-              className="h-[440px] flex items-center justify-center relative"
-              style={{ backgroundColor: slide.backgroundColor }}
+              className="h-[440px] flex items-center justify-center relative bg-black"
             >
-              {slide.imageUrl && slide.imageUrl.startsWith('/') ? (
-                <img
-                  src={slide.imageUrl}
-                  alt={slide.title}
-                  className="w-full h-full object-contain"
-                />
-              ) : slide.imageUrl ? (
-                <img
-                  src={slide.imageUrl}
-                  alt={slide.title}
-                  className="w-full h-full object-contain"
-                />
-              ) : (
-                <div className="text-center text-white">
-                  <h2 className="text-4xl font-bold mb-2">{slide.title}</h2>
-                  {slide.description && (
-                    <p className="text-xl">{slide.description}</p>
-                  )}
-                </div>
-              )}
               {slide.imageUrl && (
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent text-white p-8">
-                  <h2 className="text-3xl font-bold mb-2">{slide.title}</h2>
-                  {slide.description && (
-                    <p className="text-lg">{slide.description}</p>
-                  )}
-                </div>
+                <img
+                  src={slide.imageUrl}
+                  alt="Banner slide"
+                  className="w-full h-full object-contain"
+                />
               )}
             </div>
           </div>

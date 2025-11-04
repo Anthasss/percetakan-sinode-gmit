@@ -3,9 +3,6 @@ import { useState } from "react";
 
 export default function BannerSlideEditor({ slide, onDelete, onAdd, isAddSlide = false }) {
   const [imagePreview, setImagePreview] = useState("");
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [backgroundColor, setBackgroundColor] = useState("#000000");
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
@@ -19,20 +16,15 @@ export default function BannerSlideEditor({ slide, onDelete, onAdd, isAddSlide =
   };
 
   const handleAddSlide = () => {
-    if (imagePreview || title) {
+    if (imagePreview) {
       const newSlide = {
         id: Date.now(),
-        imageUrl: imagePreview || "",
-        title: title || "New Slide",
-        description: description || "",
-        backgroundColor: backgroundColor
+        imageUrl: imagePreview,
+        backgroundColor: "#000000"
       };
       onAdd(newSlide);
       // Reset form
       setImagePreview("");
-      setTitle("");
-      setDescription("");
-      setBackgroundColor("#000000");
       document.getElementById('add_slide_modal').close();
     }
   };
@@ -53,44 +45,7 @@ export default function BannerSlideEditor({ slide, onDelete, onAdd, isAddSlide =
             
             <div className="form-control w-full mb-4">
               <label className="label">
-                <span className="label-text">Title</span>
-              </label>
-              <input
-                type="text"
-                placeholder="Enter slide title"
-                className="input input-bordered w-full"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-              />
-            </div>
-
-            <div className="form-control w-full mb-4">
-              <label className="label">
-                <span className="label-text">Description (Optional)</span>
-              </label>
-              <textarea
-                placeholder="Enter slide description"
-                className="textarea textarea-bordered"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              />
-            </div>
-
-            <div className="form-control w-full mb-4">
-              <label className="label">
-                <span className="label-text">Background Color</span>
-              </label>
-              <input
-                type="color"
-                className="input input-bordered w-full h-12"
-                value={backgroundColor}
-                onChange={(e) => setBackgroundColor(e.target.value)}
-              />
-            </div>
-
-            <div className="form-control w-full mb-4">
-              <label className="label">
-                <span className="label-text">Upload Image (Optional)</span>
+                <span className="label-text">Upload Image</span>
               </label>
               <input
                 type="file"
@@ -113,7 +68,7 @@ export default function BannerSlideEditor({ slide, onDelete, onAdd, isAddSlide =
               <button
                 className="btn btn-primary"
                 onClick={handleAddSlide}
-                disabled={!imagePreview && !title}
+                disabled={!imagePreview}
               >
                 Add Slide
               </button>
