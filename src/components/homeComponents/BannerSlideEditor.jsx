@@ -1,7 +1,7 @@
 import { X, Plus, Upload } from "lucide-react";
 import { useState } from "react";
 
-export default function CarouselSlideEditor({ slide, onDelete, onAdd, isAddSlide = false }) {
+export default function BannerSlideEditor({ slide, onDelete, onAdd, isAddSlide = false }) {
   const [imagePreview, setImagePreview] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");

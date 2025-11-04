@@ -29,7 +29,7 @@ function NextArrow({ onClick }) {
   );
 }
 
-export default function HomeCarousel() {
+export default function HomeBanner() {
   const [slides, setSlides] = useState(carouselData.slides);
 
   const settings = {

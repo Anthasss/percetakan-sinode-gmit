@@ -7,7 +7,7 @@ import ProductPage from "./pages/ProductPage";
 import MyOrderPage from "./pages/MyOrderPage";
 
 import AdminOrdersPage from "./pages/admin/AdminOrdersPage";
-import ManagePromoPage from "./pages/admin/ManagePromoPage";
+import 
 
 function App() {
   console.log("Auth0 Domain:", import.meta.env.VITE_AUTH0_DOMAIN);

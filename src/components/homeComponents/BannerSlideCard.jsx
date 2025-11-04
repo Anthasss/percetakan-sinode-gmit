@@ -1,12 +1,12 @@
-import CarouselSlideEditor from "./BannerSlideEditor";
+import BannerSlideEditor from "./BannerSlideEditor";
 
-export default function CarouselSlideCard({ slide, onDelete }) {
+export default function BannerSlideCard({ slide, onDelete }) {
   return (
     <div
       className="relative h-64 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
       style={{ backgroundColor: slide.backgroundColor }}
     >
-      <CarouselSlideEditor
+      <BannerSlideEditor
         slide={slide}
         onDelete={onDelete}
       />

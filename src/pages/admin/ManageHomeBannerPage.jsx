@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { Save } from "lucide-react";
-import CarouselSlideEditor from "../../components/homeComponents/BannerSlideEditor";
-import CarouselSlideCard from "../../components/homeComponents/BannerSlideCard";
+import BannerSlideEditor from "../../components/homeComponents/BannerSlideEditor";
+import BannerSlideCard from "../../components/homeComponents/BannerSlideCard";
 import DeleteSlideModal from "../../components/homeComponents/DeleteSlideModal";
 import { useAuthWithBackend } from "../../hooks/useAuthWithBackend";
 import carouselData from "../../json/carousel.json";
 import toast from "../../utils/toast";
 
-export default function ManagePromoPage() {
+export default function ManageHomeBannerPage() {
   const { isAuthenticated, backendUser, isSyncing } = useAuthWithBackend();
   const [slides, setSlides] = useState([]);
   const [hasChanges, setHasChanges] = useState(false);
@@ -101,7 +101,7 @@ export default function ManagePromoPage() {
         {/* Slides Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {slides.map((slide) => (
-            <CarouselSlideCard
+            <BannerSlideCard
               key={slide.id}
               slide={slide}
               onDelete={handleDeleteSlide}
@@ -110,7 +110,7 @@ export default function ManagePromoPage() {
           
           {/* Add New Slide Card */}
           <div className="h-64 rounded-lg border-2 border-dashed border-gray-300 flex items-center justify-center hover:border-primary hover:bg-base-200 transition-colors">
-            <CarouselSlideEditor
+            <BannerSlideEditor
               isAddSlide={true}
               onAdd={handleAddSlide}
             />

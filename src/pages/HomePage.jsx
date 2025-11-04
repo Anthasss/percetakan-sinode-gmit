@@ -1,4 +1,4 @@
-import HomeCarousel from "../components/homeComponents/HomeCarousel"
+import HomeBanner from "../components/homeComponents/HomeBanner"
 import ProductRowContainer from "../components/homeComponents/ProductRowContainer"
 import ProductRow from "../components/homeComponents/ProductRow"
 import ProductRowCard from "../components/homeComponents/ProductRowCard"
@@ -15,7 +15,7 @@ export default function HomePage(){
 
   return (
     <div className="w-full min-h-screen p-8 flex flex-col gap-16">
-      <HomeCarousel/>
+      <HomeBanner />
       <ProductRowContainer>
         <ProductRow title="Print">
           {printProducts.map((product) => (
