@@ -9,9 +9,9 @@ export default function BannerSlideCard({ slide, onDelete }) {
         slide={slide}
         onDelete={onDelete}
       />
-      {slide.imageUrl && (
+      {slide.publicUrl && (
         <img
-          src={slide.imageUrl}
+          src={slide.publicUrl}
           alt="Banner slide"
           className="w-full h-full object-contain"
         />

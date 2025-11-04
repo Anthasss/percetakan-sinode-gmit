@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
-import carouselData from "../../json/carousel.json";
+import { homeBannerApi } from "../../services";
 
 function PrevArrow({ onClick }) {
   return (
@@ -30,7 +30,8 @@ function NextArrow({ onClick }) {
 }
 
 export default function HomeBanner() {
-  const [slides, setSlides] = useState(carouselData.slides);
+  const [slides, setSlides] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const settings = {
     dots: true,
@@ -44,13 +45,38 @@ export default function HomeBanner() {
     autoplaySpeed: 5000,
   };
 
-  // Load saved slides on mount
+  // Load banners from API on mount
   useEffect(() => {
-    const savedSlides = localStorage.getItem('carouselSlides');
-    if (savedSlides) {
-      setSlides(JSON.parse(savedSlides));
-    }
+    const fetchBanners = async () => {
+      try {
+        setIsLoading(true);
+        const banners = await homeBannerApi.getAllHomeBanners();
+        setSlides(banners);
+      } catch (error) {
+        console.error('Error fetching home banners:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchBanners();
   }, []);
+
+  if (isLoading) {
+    return (
+      <div className="h-[440px] bg-black flex items-center justify-center">
+        <span className="loading loading-spinner loading-lg text-white"></span>
+      </div>
+    );
+  }
+
+  if (slides.length === 0) {
+    return (
+      <div className="h-[440px] bg-black flex items-center justify-center">
+        <p className="text-white text-xl">No banners available</p>
+      </div>
+    );
+  }
 
   return (
     <div className="relative">
@@ -61,9 +87,9 @@ export default function HomeBanner() {
             <div
               className="h-[440px] flex items-center justify-center relative bg-black"
             >
-              {slide.imageUrl && (
+              {slide.publicUrl && (
                 <img
-                  src={slide.imageUrl}
+                  src={slide.publicUrl}
                   alt="Banner slide"
                   className="w-full h-full object-contain"
                 />

@@ -1,4 +1,4 @@
-export default function DeleteSlideModal({ onConfirm, onCancel }) {
+export default function DeleteSlideModal({ onConfirm, onCancel, isDeleting = false }) {
   return (
     <dialog id="delete_slide_modal" className="modal">
       <div className="modal-box">
@@ -9,18 +9,28 @@ export default function DeleteSlideModal({ onConfirm, onCancel }) {
             className="btn btn-error"
             onClick={() => {
               onConfirm();
-              document.getElementById('delete_slide_modal').close();
+              if (!isDeleting) {
+                document.getElementById('delete_slide_modal').close();
+              }
             }}
+            disabled={isDeleting}
           >
-            Delete
+            {isDeleting ? (
+              <>
+                <span className="loading loading-spinner loading-sm"></span>
+                Deleting...
+              </>
+            ) : (
+              'Delete'
+            )}
           </button>
           <form method="dialog">
-            <button className="btn" onClick={onCancel}>Cancel</button>
+            <button className="btn" onClick={onCancel} disabled={isDeleting}>Cancel</button>
           </form>
         </div>
       </div>
       <form method="dialog" className="modal-backdrop">
-        <button onClick={onCancel}>close</button>
+        <button onClick={onCancel} disabled={isDeleting}>close</button>
       </form>
     </dialog>
   );

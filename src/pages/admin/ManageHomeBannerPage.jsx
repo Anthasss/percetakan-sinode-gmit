@@ -4,24 +4,36 @@ import BannerSlideEditor from "../../components/homeComponents/BannerSlideEditor
 import BannerSlideCard from "../../components/homeComponents/BannerSlideCard";
 import DeleteSlideModal from "../../components/homeComponents/DeleteSlideModal";
 import { useAuthWithBackend } from "../../hooks/useAuthWithBackend";
-import carouselData from "../../json/carousel.json";
+import { homeBannerApi } from "../../services";
 import toast from "../../utils/toast";
 
 export default function ManageHomeBannerPage() {
   const { isAuthenticated, backendUser, isSyncing } = useAuthWithBackend();
   const [slides, setSlides] = useState([]);
-  const [hasChanges, setHasChanges] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [slideToDelete, setSlideToDelete] = useState(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
+  // Fetch banners from API
   useEffect(() => {
-    // Load saved slides from localStorage or use default
-    const savedSlides = localStorage.getItem('carouselSlides');
-    if (savedSlides) {
-      setSlides(JSON.parse(savedSlides));
-    } else {
-      setSlides(carouselData.slides);
+    const fetchBanners = async () => {
+      try {
+        setIsLoading(true);
+        const banners = await homeBannerApi.getAllHomeBanners();
+        setSlides(banners);
+      } catch (error) {
+        console.error('Error fetching home banners:', error);
+        toast.error('Failed to load banners');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    // Only fetch if authenticated as admin
+    if (isAuthenticated && backendUser?.role === 'admin') {
+      fetchBanners();
     }
-  }, []);
+  }, [isAuthenticated, backendUser]);
 
   const handleDeleteSlide = (slideId) => {
     if (slides.length <= 1) {
@@ -33,12 +45,21 @@ export default function ManageHomeBannerPage() {
     document.getElementById('delete_slide_modal').showModal();
   };
 
-  const confirmDeleteSlide = () => {
-    if (slideToDelete) {
+  const confirmDeleteSlide = async () => {
+    if (!slideToDelete) return;
+
+    try {
+      setIsDeleting(true);
+      await homeBannerApi.deleteHomeBanner(slideToDelete);
       setSlides(slides.filter(slide => slide.id !== slideToDelete));
-      setHasChanges(true);
-      toast.success("Slide deleted");
+      toast.success("Slide deleted successfully");
       setSlideToDelete(null);
+      document.getElementById('delete_slide_modal').close();
+    } catch (error) {
+      console.error('Error deleting banner:', error);
+      toast.error(error.response?.data?.error || 'Failed to delete banner');
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -47,16 +68,7 @@ export default function ManageHomeBannerPage() {
   };
 
   const handleAddSlide = (newSlide) => {
-    setSlides([...slides, newSlide]);
-    setHasChanges(true);
-    toast.success("Slide added successfully");
-  };
-
-  const handleSaveChanges = () => {
-    // TODO: In a real app, this would save to backend/API
-    localStorage.setItem('carouselSlides', JSON.stringify(slides));
-    setHasChanges(false);
-    toast.success("Carousel changes saved!");
+    setSlides([newSlide, ...slides]); // Add to beginning (newest first)
   };
 
   // Show loading while checking authentication
@@ -85,42 +97,41 @@ export default function ManageHomeBannerPage() {
       <div className="max-w-7xl mx-auto">
         {/* Header with Actions */}
         <div className="mb-8">
-          <div className="flex items-center justify-between mb-4">
-            <h1 className="text-3xl font-bold">Manage Carousel</h1>
-            <button
-              className="btn btn-success gap-2"
-              onClick={handleSaveChanges}
-              disabled={!hasChanges}
-            >
-              <Save size={20} />
-              Save Changes
-            </button>
-          </div>
+          <h1 className="text-3xl font-bold">Manage Carousel</h1>
         </div>
 
-        {/* Slides Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {slides.map((slide) => (
-            <BannerSlideCard
-              key={slide.id}
-              slide={slide}
-              onDelete={handleDeleteSlide}
-            />
-          ))}
-          
-          {/* Add New Slide Card */}
-          <div className="h-64 rounded-lg border-2 border-dashed border-gray-300 flex items-center justify-center hover:border-primary hover:bg-base-200 transition-colors">
-            <BannerSlideEditor
-              isAddSlide={true}
-              onAdd={handleAddSlide}
-            />
+        {isLoading ? (
+          <div className="flex items-center justify-center min-h-[400px]">
+            <span className="loading loading-spinner loading-lg"></span>
           </div>
-        </div>
+        ) : (
+          <>
+            {/* Slides Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {slides.map((slide) => (
+                <BannerSlideCard
+                  key={slide.id}
+                  slide={slide}
+                  onDelete={handleDeleteSlide}
+                />
+              ))}
+              
+              {/* Add New Slide Card */}
+              <div className="h-64 rounded-lg border-2 border-dashed border-gray-300 flex items-center justify-center hover:border-primary hover:bg-base-200 transition-colors">
+                <BannerSlideEditor
+                  isAddSlide={true}
+                  onAdd={handleAddSlide}
+                />
+              </div>
+            </div>
 
-        <DeleteSlideModal
-          onConfirm={confirmDeleteSlide}
-          onCancel={cancelDeleteSlide}
-        />
+            <DeleteSlideModal
+              onConfirm={confirmDeleteSlide}
+              onCancel={cancelDeleteSlide}
+              isDeleting={isDeleting}
+            />
+          </>
+        )}
       </div>
     </div>
   );

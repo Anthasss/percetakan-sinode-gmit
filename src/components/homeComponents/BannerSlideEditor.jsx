@@ -1,12 +1,31 @@
-import { X, Plus, Upload } from "lucide-react";
+import { X, Plus } from "lucide-react";
 import { useState } from "react";
+import { homeBannerApi } from "../../services";
+import toast from "../../utils/toast";
 
 export default function BannerSlideEditor({ slide, onDelete, onAdd, isAddSlide = false }) {
   const [imagePreview, setImagePreview] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
+      // Validate file type
+      const validTypes = ['image/jpeg', 'image/png', 'image/webp'];
+      if (!validTypes.includes(file.type)) {
+        toast.error('Please upload a JPEG, PNG, or WebP image');
+        return;
+      }
+
+      // Validate file size (5MB max)
+      const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+      if (file.size > maxSize) {
+        toast.error('Image size must be less than 5MB');
+        return;
+      }
+
+      setSelectedFile(file);
       const reader = new FileReader();
       reader.onloadend = () => {
         setImagePreview(reader.result);
@@ -15,17 +34,27 @@ export default function BannerSlideEditor({ slide, onDelete, onAdd, isAddSlide =
     }
   };
 
-  const handleAddSlide = () => {
-    if (imagePreview) {
-      const newSlide = {
-        id: Date.now(),
-        imageUrl: imagePreview,
-        backgroundColor: "#000000"
-      };
-      onAdd(newSlide);
+  const handleAddSlide = async () => {
+    if (!selectedFile) {
+      toast.error('Please select an image');
+      return;
+    }
+
+    try {
+      setIsUploading(true);
+      const newBanner = await homeBannerApi.uploadHomeBanner(selectedFile);
+      onAdd(newBanner);
+      toast.success('Banner uploaded successfully');
+      
       // Reset form
       setImagePreview("");
+      setSelectedFile(null);
       document.getElementById('add_slide_modal').close();
+    } catch (error) {
+      console.error('Error uploading banner:', error);
+      toast.error(error.response?.data?.error || 'Failed to upload banner');
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -68,12 +97,19 @@ export default function BannerSlideEditor({ slide, onDelete, onAdd, isAddSlide =
               <button
                 className="btn btn-primary"
                 onClick={handleAddSlide}
-                disabled={!imagePreview}
+                disabled={!imagePreview || isUploading}
               >
-                Add Slide
+                {isUploading ? (
+                  <>
+                    <span className="loading loading-spinner loading-sm"></span>
+                    Uploading...
+                  </>
+                ) : (
+                  'Add Slide'
+                )}
               </button>
               <form method="dialog">
-                <button className="btn">Cancel</button>
+                <button className="btn" disabled={isUploading}>Cancel</button>
               </form>
             </div>
           </div>
