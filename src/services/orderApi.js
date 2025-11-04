@@ -1,18 +1,93 @@
 import { axiosInstance } from './config';
 
+// File validation constants
+export const FILE_VALIDATION = {
+  MAX_FILES: 10,
+  MAX_FILE_SIZE: 10 * 1024 * 1024, // 10MB in bytes
+  ALLOWED_TYPES: ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'application/pdf'],
+  ALLOWED_EXTENSIONS: ['.jpg', '.jpeg', '.png', '.webp', '.pdf'],
+};
+
+/**
+ * Validate files before upload
+ * @param {FileList|File[]} files - Files to validate
+ * @returns {{ valid: boolean, error?: string }}
+ */
+export const validateFiles = (files) => {
+  if (!files || files.length === 0) {
+    return { valid: true }; // No files is valid (optional upload)
+  }
+
+  const fileArray = Array.from(files);
+
+  if (fileArray.length > FILE_VALIDATION.MAX_FILES) {
+    return { 
+      valid: false, 
+      error: `Maximum ${FILE_VALIDATION.MAX_FILES} files allowed. You selected ${fileArray.length} files.` 
+    };
+  }
+
+  for (const file of fileArray) {
+    if (file.size > FILE_VALIDATION.MAX_FILE_SIZE) {
+      const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
+      return { 
+        valid: false, 
+        error: `"${file.name}" is ${sizeMB}MB. Maximum file size is 10MB.` 
+      };
+    }
+
+    if (!FILE_VALIDATION.ALLOWED_TYPES.includes(file.type)) {
+      return { 
+        valid: false, 
+        error: `"${file.name}" has invalid type. Only JPEG, PNG, WebP, and PDF files are allowed.` 
+      };
+    }
+  }
+
+  return { valid: true };
+};
+
 export const orderApi = {
-  create: async ({ userId, productId, price, status = 'pending', orderSpecifications }) => {
+  create: async ({ userId, productId, price, status = 'pending', orderSpecifications, files = [] }) => {
     try {
-      const response = await axiosInstance.post('/api/orders', {
-        userId,
-        productId,
-        price,
-        status,
-        orderSpecifications,
+      // Validate files if provided
+      if (files && files.length > 0) {
+        const validation = validateFiles(files);
+        if (!validation.valid) {
+          throw new Error(validation.error);
+        }
+      }
+
+      // Build FormData
+      const formData = new FormData();
+      formData.append('userId', userId);
+      formData.append('productId', productId.toString());
+      formData.append('status', status);
+      
+      if (price !== null && price !== undefined) {
+        formData.append('price', price.toString());
+      }
+
+      // Stringify orderSpecifications (DO NOT include files here)
+      formData.append('orderSpecifications', JSON.stringify(orderSpecifications));
+
+      // Append files separately
+      if (files && files.length > 0) {
+        const fileArray = Array.from(files);
+        fileArray.forEach(file => {
+          formData.append('files', file);
+        });
+      }
+
+      const response = await axiosInstance.post('/api/orders', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       });
+
       return response.data;
     } catch (error) {
-      const errorMsg = error.response?.data?.message || error.response?.statusText || error.message;
+      const errorMsg = error.response?.data?.error || error.response?.data?.message || error.message;
       throw new Error(`Failed to create order: ${errorMsg}`);
     }
   },

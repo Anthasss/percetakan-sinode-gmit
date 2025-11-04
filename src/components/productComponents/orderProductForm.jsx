@@ -69,18 +69,33 @@ export default function OrderProductForm({ productId }) {
     setIsSubmitting(true);
 
     try {
-      // Prepare order specifications
-      const orderSpecifications = {
-        quantity,
-        ...formData,
-      };
+      // Extract files from formData
+      let files = [];
+      const orderSpecifications = { quantity };
 
-      // Create order
+      // Process formData to separate files from other data
+      Object.keys(formData).forEach(key => {
+        const value = formData[key];
+        
+        // Check if value is FileList or File
+        if (value instanceof FileList || value instanceof File) {
+          files = value instanceof FileList ? Array.from(value) : [value];
+        } else if (value !== null && value !== undefined && value !== '') {
+          // Only include non-empty, non-file values in orderSpecifications
+          orderSpecifications[key] = value;
+        }
+      });
+
+      console.log('Order specifications (without files):', orderSpecifications);
+      console.log('Files to upload:', files);
+
+      // Create order with files
       const orderResponse = await orderApi.create({
         userId: user.sub,
         productId: parseInt(productId),
         price: null, // Price will be set by admin
         orderSpecifications,
+        files, // Pass files separately
       });
 
       console.log('Order created successfully:', orderResponse);
@@ -95,7 +110,7 @@ export default function OrderProductForm({ productId }) {
       }, 1000);
     } catch (error) {
       console.error('Error creating order:', error);
-      toast.error('Failed to place order. Please try again.');
+      toast.error(error.message || 'Failed to place order. Please try again.');
     } finally {
       setIsSubmitting(false);
     }

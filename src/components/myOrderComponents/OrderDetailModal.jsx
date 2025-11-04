@@ -1,4 +1,4 @@
-import { X } from "lucide-react";
+import { X, FileText, Image, Download } from "lucide-react";
 
 export default function OrderDetailModal({ order }) {
   const formatCurrency = (amount) => {
@@ -7,6 +7,23 @@ export default function OrderDetailModal({ order }) {
       currency: 'IDR',
       minimumFractionDigits: 0
     }).format(amount);
+  };
+
+  const formatFileSize = (bytes) => {
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(2) + ' KB';
+    return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+  };
+
+  const getFileIcon = (mimeType) => {
+    if (mimeType?.startsWith('image/')) {
+      return <Image className="h-5 w-5" />;
+    }
+    return <FileText className="h-5 w-5" />;
+  };
+
+  const isImageFile = (mimeType) => {
+    return mimeType?.startsWith('image/');
   };
 
   const getStatusBadge = (status) => {
@@ -37,6 +54,12 @@ export default function OrderDetailModal({ order }) {
   if (!order) return null;
 
   const specifications = order.orderSpecifications || order.details || {};
+  const uploadedFiles = specifications.files || [];
+  
+  // Create a copy of specifications without the files array for display
+  const specsWithoutFiles = { ...specifications };
+  delete specsWithoutFiles.files;
+  
   const productTitle = order.productTitle || order.product?.title || `Product #${order.productId}`;
   const quantity = order.orderSpecifications?.quantity || order.quantity || '-';
   const orderDate = order.createdAt || order.orderDate;
@@ -77,16 +100,59 @@ export default function OrderDetailModal({ order }) {
               <div>{orderDate ? new Date(orderDate).toLocaleDateString('id-ID') : '-'}</div>
             </div>
 
-            {Object.keys(specifications).length > 0 && (
+            {Object.keys(specsWithoutFiles).length > 0 && (
               <>
                 <div className="divider"></div>
                 
                 <h4 className="font-bold text-lg">Spesifikasi Pesanan</h4>
                 <div className="bg-base-200 p-4 rounded-lg space-y-2">
-                  {Object.entries(specifications).map(([key, value]) => (
+                  {Object.entries(specsWithoutFiles).map(([key, value]) => (
                     <div key={key} className="grid grid-cols-2 gap-2">
                       <div className="font-semibold capitalize">{key}:</div>
                       <div>{typeof value === 'object' ? JSON.stringify(value) : value}</div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+
+            {uploadedFiles.length > 0 && (
+              <>
+                <div className="divider"></div>
+                
+                <h4 className="font-bold text-lg">File yang Diunggah</h4>
+                <div className="space-y-3">
+                  {uploadedFiles.map((file, index) => (
+                    <div key={index} className="border border-base-300 rounded-lg p-3">
+                      <div className="flex items-start gap-3">
+                        <div className="flex-shrink-0">
+                          {getFileIcon(file.mimeType)}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="font-medium truncate">{file.fileName}</div>
+                          <div className="text-sm text-base-content/70">
+                            {formatFileSize(file.fileSize)} • {file.mimeType}
+                          </div>
+                          {isImageFile(file.mimeType) && (
+                            <div className="mt-2">
+                              <img 
+                                src={file.publicUrl} 
+                                alt={file.fileName}
+                                className="max-w-full h-auto max-h-48 rounded-lg object-contain bg-base-200"
+                              />
+                            </div>
+                          )}
+                        </div>
+                        <a 
+                          href={file.publicUrl} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="btn btn-sm btn-ghost btn-square"
+                          title="Download file"
+                        >
+                          <Download className="h-4 w-4" />
+                        </a>
+                      </div>
                     </div>
                   ))}
                 </div>
