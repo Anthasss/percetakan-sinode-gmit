@@ -1,3 +1,5 @@
+import { FileText } from "lucide-react";
+
 export default function OrdersTable({ orders, onViewDetail, onCancelOrder, currentPage = 1, itemsPerPage = 10 }) {
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat('id-ID', {
@@ -40,6 +42,7 @@ export default function OrdersTable({ orders, onViewDetail, onCancelOrder, curre
             <th>No.</th>
             <th>Produk</th>
             <th>Kuantitas</th>
+            <th>Files</th>
             <th>Harga</th>
             <th>Status</th>
             <th>Aksi</th>
@@ -48,11 +51,22 @@ export default function OrdersTable({ orders, onViewDetail, onCancelOrder, curre
         <tbody>
           {orders.map((order, index) => {
             const globalIndex = (currentPage - 1) * itemsPerPage + index + 1;
+            const fileCount = order.orderSpecifications?.files?.length || 0;
             return (
               <tr key={order.id}>
                 <td>{globalIndex}</td>
                 <td className="font-semibold">{order.productTitle || order.product?.title || `Product #${order.productId}`}</td>
               <td>{order.orderSpecifications?.quantity || order.quantity || '-'}</td>
+              <td>
+                {fileCount > 0 ? (
+                  <div className="flex items-center gap-1 text-sm">
+                    <FileText className="h-4 w-4" />
+                    <span>{fileCount}</span>
+                  </div>
+                ) : (
+                  <span className="text-base-content/50">-</span>
+                )}
+              </td>
               <td>{order.price ? formatCurrency(order.price) : 'Belum ditentukan'}</td>
               <td>
                 <span className={`badge ${getStatusBadge(order.status)}`}>

@@ -23,8 +23,8 @@
     },
     {
       "id": 4,
-      "label": "Manage Promo",
-      "path": "/admin/promo",
+      "label": "Home Banner",
+      "path": "/admin/home-banner",
       "requiresAuth": true,
       "allowedRoles": ["admin"]
     }

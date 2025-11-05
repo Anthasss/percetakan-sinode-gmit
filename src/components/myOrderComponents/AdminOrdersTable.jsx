@@ -1,3 +1,5 @@
+import { FileText } from "lucide-react";
+
 export default function AdminOrdersTable({ orders, onViewDetail, onInputPrice, onCancelOrder, onChangeStatus, currentPage = 1, itemsPerPage = 10 }) {
   const formatCurrency = (amount) => {
     if (amount === null || amount === undefined) {
@@ -44,6 +46,7 @@ export default function AdminOrdersTable({ orders, onViewDetail, onInputPrice, o
             <th>Nama User</th>
             <th>Produk</th>
             <th>Kuantitas</th>
+            <th>Files</th>
             <th>Harga</th>
             <th>Status</th>
             <th>Aksi</th>
@@ -52,12 +55,23 @@ export default function AdminOrdersTable({ orders, onViewDetail, onInputPrice, o
         <tbody>
           {orders.map((order, index) => {
             const globalIndex = (currentPage - 1) * itemsPerPage + index + 1;
+            const fileCount = order.orderSpecifications?.files?.length || 0;
             return (
               <tr key={order.id}>
                 <td>{globalIndex}</td>
                 <td className="font-medium">{order.user?.name || order.userName || 'Unknown User'}</td>
               <td className="font-semibold">{order.productTitle || order.product?.title || `Product #${order.productId}`}</td>
               <td>{order.orderSpecifications?.quantity || order.quantity || '-'}</td>
+              <td>
+                {fileCount > 0 ? (
+                  <div className="flex items-center gap-1 text-sm">
+                    <FileText className="h-4 w-4" />
+                    <span>{fileCount}</span>
+                  </div>
+                ) : (
+                  <span className="text-base-content/50">-</span>
+                )}
+              </td>
               <td>{formatCurrency(order.price)}</td>
               <td>
                 <span className={`badge ${getStatusBadge(order.status)}`}>
