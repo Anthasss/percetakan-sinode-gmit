@@ -50,6 +50,12 @@ export const validateFiles = (files) => {
 export const orderApi = {
   create: async ({ userId, productId, price, status = 'pending', orderSpecifications, files = [] }) => {
     try {
+      // Validate productId
+      const numericProductId = Number(productId);
+      if (!productId || isNaN(numericProductId)) {
+        throw new Error(`Invalid product ID: ${productId}`);
+      }
+
       // Validate files if provided
       if (files && files.length > 0) {
         const validation = validateFiles(files);
@@ -60,12 +66,12 @@ export const orderApi = {
 
       // Build FormData
       const formData = new FormData();
-      formData.append('userId', userId);
-      formData.append('productId', productId.toString());
-      formData.append('status', status);
+      formData.append('userId', String(userId));
+      formData.append('productId', String(numericProductId)); // FormData always sends as string
+      formData.append('status', String(status));
       
       if (price !== null && price !== undefined) {
-        formData.append('price', price.toString());
+        formData.append('price', String(Number(price)));
       }
 
       // Stringify orderSpecifications (DO NOT include files here)
@@ -79,6 +85,13 @@ export const orderApi = {
         });
       }
 
+      console.log('Creating order with FormData:');
+      console.log('- userId:', userId);
+      console.log('- productId:', numericProductId, '(type:', typeof numericProductId, ')');
+      console.log('- status:', status);
+      console.log('- orderSpecifications:', orderSpecifications);
+      console.log('- files count:', files.length);
+
       const response = await axiosInstance.post('/api/orders', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -87,6 +100,8 @@ export const orderApi = {
 
       return response.data;
     } catch (error) {
+      console.error('Full error object:', error);
+      console.error('Response data:', error.response?.data);
       const errorMsg = error.response?.data?.error || error.response?.data?.message || error.message;
       throw new Error(`Failed to create order: ${errorMsg}`);
     }
