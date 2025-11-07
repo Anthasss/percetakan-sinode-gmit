@@ -10,7 +10,7 @@
     {
       "id": 2,
       "title": "Buku",
-      "image": ["https://s3.nevaobjects.id/sinodegmitobject/p_book.webp","https://s3.nevaobjects.id/sinodegmitobject/p_book2.webp","https://s3.nevaobjects.id/sinodegmitobject/p_book3.webp","https://s3.nevaobjects.id/sinodegmitobject/p_bookContent.webp","https://s3.nevaobjects.id/sinodegmitobject/p_bookCover.webp"],
+      "image": ["https://s3.nevaobjects.id/sinodegmitobject/book1.webp","https://s3.nevaobjects.id/sinodegmitobject/book2.webp","https://s3.nevaobjects.id/sinodegmitobject/book3.webp","https://s3.nevaobjects.id/sinodegmitobject/p_bookContent.webp","https://s3.nevaobjects.id/sinodegmitobject/p_bookCover.webp"],
       "category": "print",
       "formComponent": "BukuForm"
     },
@@ -87,7 +87,7 @@
     {
       "id": 13,
       "title": "Sablon Piring",
-      "image": ["https://s3.nevaobjects.id/sinodegmitobject/p_sablonPiring1.webp", "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp", "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp", "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp", "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp", "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp", "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp", "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp", "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp", "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"],
+      "image": ["https://s3.nevaobjects.id/sinodegmitobject/p_sablonPiring1.webp", "https://s3.nevaobjects.id/sinodegmitobject/Piring%201.webp", "https://s3.nevaobjects.id/sinodegmitobject/Piring%202.webp", "https://s3.nevaobjects.id/sinodegmitobject/Piring%203.webp","https://s3.nevaobjects.id/sinodegmitobject/Piring%204.webp"],
       "category": "others",
       "formComponent": "SablonPiringForm"
     },
