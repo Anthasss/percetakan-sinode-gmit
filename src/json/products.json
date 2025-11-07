@@ -10,7 +10,7 @@
     {
       "id": 2,
       "title": "Buku",
-      "image": ["https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"],
+      "image": ["https://s3.nevaobjects.id/sinodegmitobject/p_book.webp","https://s3.nevaobjects.id/sinodegmitobject/p_book2.webp","https://s3.nevaobjects.id/sinodegmitobject/p_book3.webp","https://s3.nevaobjects.id/sinodegmitobject/p_bookContent.webp","https://s3.nevaobjects.id/sinodegmitobject/p_bookCover.webp"],
       "category": "print",
       "formComponent": "BukuForm"
     },
@@ -31,7 +31,7 @@
     {
       "id": 5,
       "title": "Spanduk/Baliho",
-      "image": ["https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"],
+      "image": ["https://s3.nevaobjects.id/sinodegmitobject/p_baliho.webp","https://s3.nevaobjects.id/sinodegmitobject/p_baliho2.webp"],
       "category": "outdoor",
       "formComponent": "SpandukBalihoForm"
     },
@@ -65,22 +65,22 @@
     },
     {
       "id": 10,
-      "title": "Batu Nisan",
-      "image": ["https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"],
+      "title": "Batu Nisan/Prasasti",
+      "image": ["https://s3.nevaobjects.id/sinodegmitobject/p_batuPrasastiorNisan.webp"],
       "category": "outdoor",
       "formComponent": "BatuNisanForm"
     },
     {
       "id": 11,
       "title": "Stempel",
-      "image": ["https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"],
+      "image": ["https://s3.nevaobjects.id/sinodegmitobject/p_stamples.webp"],
       "category": "others",
       "formComponent": "StempelForm"
     },
     {
       "id": 12,
       "title": "Sablon Gelas",
-      "image": ["https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"],
+      "image": ["https://s3.nevaobjects.id/sinodegmitobject/p_sablonGelas.webp"],
       "category": "others",
       "formComponent": "SablonGelasForm"
     },
@@ -94,7 +94,7 @@
     {
       "id": 14,
       "title": "Sablon Baju",
-      "image": ["https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"],
+      "image": ["https://s3.nevaobjects.id/sinodegmitobject/p_sablonBaju.webp"],
       "category": "others",
       "formComponent": "SablonBajuForm"
     }
