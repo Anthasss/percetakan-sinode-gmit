@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import productsData from "../../json/products.json";
 import { useOrder } from "../../context/OrderContext";
@@ -41,6 +42,8 @@ export default function OrderProductForm({ productId }) {
   const navigate = useNavigate();
   const { quantity, updateOrderSpecifications, isSubmitting, setIsSubmitting, resetOrder } = useOrder();
   const { isAuthenticated, user } = useAuthWithBackend();
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [pendingFormData, setPendingFormData] = useState(null);
 
   // Find product by ID
   const product = productsData.products.find(p => p.id === parseInt(productId));
@@ -62,8 +65,16 @@ export default function OrderProductForm({ productId }) {
       return;
     }
 
+    // Store form data and show confirmation modal
+    setPendingFormData(formData);
+    setShowConfirmModal(true);
+  };
+
+  const handleConfirmOrder = async () => {
+    setShowConfirmModal(false);
+
     console.log("Order submitted for product:", product.title);
-    console.log("Form data:", formData);
+    console.log("Form data:", pendingFormData);
     console.log("Quantity:", quantity);
 
     setIsSubmitting(true);
@@ -74,8 +85,8 @@ export default function OrderProductForm({ productId }) {
       const orderSpecifications = { quantity };
 
       // Process formData to separate files from other data
-      Object.keys(formData).forEach(key => {
-        const value = formData[key];
+      Object.keys(pendingFormData).forEach(key => {
+        const value = pendingFormData[key];
         
         // Check if value is FileList or File
         if (value instanceof FileList || value instanceof File) {
@@ -116,6 +127,11 @@ export default function OrderProductForm({ productId }) {
     }
   };
 
+  const handleCancelOrder = () => {
+    setShowConfirmModal(false);
+    setPendingFormData(null);
+  };
+
   return (
     <div className="w-full flex-1 border-2 border-neutral rounded-lg p-4 flex flex-col">
       <h2 className="text-xl font-bold mb-4">Form Pemesanan - {product.title}</h2>
@@ -131,6 +147,34 @@ export default function OrderProductForm({ productId }) {
           <p className="text-warning">Form belum tersedia untuk produk ini</p>
         )}
       </div>
+
+      {/* Confirmation Modal */}
+      {showConfirmModal && (
+        <div className="modal modal-open">
+          <div className="modal-box">
+            <h3 className="font-bold text-lg mb-4">Konfirmasi Pesanan</h3>
+            <p className="py-4">
+              Harga akan ditentukan oleh admin setelah pesanan dibuat. Pesanan dapat dibatalkan setelah harga ditentukan!
+            </p>
+            <div className="modal-action">
+              <button 
+                className="btn btn-ghost" 
+                onClick={handleCancelOrder}
+                disabled={isSubmitting}
+              >
+                Batal
+              </button>
+              <button 
+                className="btn btn-primary" 
+                onClick={handleConfirmOrder}
+                disabled={isSubmitting}
+              >
+                Setuju
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
