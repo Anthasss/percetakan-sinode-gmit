@@ -3,6 +3,7 @@ import ProductTitle from "../components/productComponents/productTitle"
 import OrderProductForm from "../components/productComponents/orderProductForm"
 import ProductImages from "../components/productComponents/productImages"
 import QuantityPicker from "../components/productComponents/quantityPicker"
+import ContactAdminCard from "../components/productComponents/ContactAdminCard"
 import productsData from "../json/products.json";
 import { OrderProvider } from "../context/OrderContext";
 
@@ -26,6 +27,7 @@ export default function ProductPage() {
         <div className="w-full md:w-auto h-full rounded-lg">
           <ProductImages productId={productId} />
           {!hideQuantityPicker && <QuantityPicker productId={productId} />}
+          <ContactAdminCard productId={productId} />
         </div>
       </div>
     </OrderProvider>
