@@ -14,7 +14,8 @@ export default function HomePage(){
   const othersProducts = products.filter(product => product.category === "others");
 
   return (
-    <div className="w-full min-h-screen p-8 flex flex-col gap-16">
+    <div className="w-full min-h-screen p-8 flex flex-col gap-8">
+      <h1 className="text-center text-2xl font-bold">Selamat datang di Percetakan Sinode GMIT</h1>
       <HomeBanner />
       <ProductRowContainer>
         <ProductRow title="Print">
