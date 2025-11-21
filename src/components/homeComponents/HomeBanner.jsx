@@ -85,7 +85,7 @@ export default function HomeBanner() {
         {slides.map((slide) => (
           <div key={slide.id}>
             <div
-              className="h-[440px] flex items-center justify-center relative bg-black"
+              className="h-[440px] flex items-center justify-center relative bg-black mb-8"
             >
               {slide.publicUrl && (
                 <img
