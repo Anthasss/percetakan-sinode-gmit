@@ -1,7 +1,7 @@
 export default function CustomOrderSection() {
   const handleCustomOrder = () => {
     // TODO: Replace with your WhatsApp Business link
-    const whatsappLink = "https://wa.me/+6282237602747"; // Replace with actual number
+    const whatsappLink = "https://wa.me/085138824884"; // Replace with actual number (Done)
     window.open(whatsappLink, "_blank", "noopener,noreferrer");
   };
 
