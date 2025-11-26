@@ -1,7 +1,12 @@
 export default function CustomOrderSection() {
-  const handleCustomOrder = () => {
-    // TODO: Replace with your WhatsApp Business link
-    const whatsappLink = "https://wa.me/+6282237602747"; // Replace with actual number
+  const admins = [
+    { name: "Samuel", phoneNumber: "+6282237602747" },
+    { name: "Koral", phoneNumber: "+6282340057174" },
+    { name: "Kimi", phoneNumber: "+6282339201795" },
+  ];
+
+  const handleCustomOrder = (phoneNumber) => {
+    const whatsappLink = `https://wa.me/${phoneNumber}`;
     window.open(whatsappLink, "_blank", "noopener,noreferrer");
   };
 
@@ -16,12 +21,17 @@ export default function CustomOrderSection() {
               Tidak menemukan yang Anda cari? Pesan barang custom sesuai kebutuhan Anda! Klik tombol di bawah untuk
               menghubungi kami melalui WhatsApp dan diskusikan detail pesanan Anda.
             </p>
-            <button
-              onClick={handleCustomOrder}
-              className="mt-6 bg-white text-blue-600 font-semibold py-3 px-8 rounded-lg hover:bg-blue-50 transition-colors duration-200 shadow-md hover:shadow-lg transform hover:scale-105"
-            >
-              Chat with Us on WhatsApp
-            </button>
+            <div className="flex flex-wrap justify-center gap-4 mt-6">
+              {admins.map((admin, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleCustomOrder(admin.phoneNumber, admin.name)}
+                  className="bg-white text-blue-600 font-semibold py-3 px-8 rounded-lg hover:bg-blue-50 transition-colors duration-200 shadow-md hover:shadow-lg transform hover:scale-105"
+                >
+                  Chat with {admin.name}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </div>
