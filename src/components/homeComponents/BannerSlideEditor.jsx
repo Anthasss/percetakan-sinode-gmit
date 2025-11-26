@@ -11,9 +11,17 @@ export default function BannerSlideEditor({ slide, onDelete, onAdd, isAddSlide =
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
-      // Validate file type
-      const validTypes = ['image/jpeg', 'image/png', 'image/webp'];
-      if (!validTypes.includes(file.type)) {
+      // Validate file type - allow common variations (especially for mobile)
+      const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+      const fileType = file.type.toLowerCase();
+      
+      // Also check file extension as fallback for mobile devices
+      const fileName = file.name.toLowerCase();
+      const validExtensions = ['.jpg', '.jpeg', '.png', '.webp'];
+      const hasValidExtension = validExtensions.some(ext => fileName.endsWith(ext));
+      
+      if (!validTypes.includes(fileType) && !hasValidExtension) {
+        console.error('Invalid file type:', file.type, 'File name:', file.name);
         toast.error('Please upload a JPEG, PNG, or WebP image');
         return;
       }
@@ -25,6 +33,7 @@ export default function BannerSlideEditor({ slide, onDelete, onAdd, isAddSlide =
         return;
       }
 
+      console.log('File accepted:', file.name, 'Type:', file.type, 'Size:', file.size);
       setSelectedFile(file);
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -78,7 +87,8 @@ export default function BannerSlideEditor({ slide, onDelete, onAdd, isAddSlide =
               </label>
               <input
                 type="file"
-                accept="image/*"
+                accept="image/jpeg,image/jpg,image/png,image/webp"
+                capture="environment"
                 className="file-input file-input-bordered w-full"
                 onChange={handleImageUpload}
               />
