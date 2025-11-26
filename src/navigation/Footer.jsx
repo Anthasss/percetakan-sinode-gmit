@@ -11,13 +11,7 @@ export default function Footer() {
           <p>Email:</p>
           <div className="flex flex-col">
             {footerData.email.map((email, index) => (
-              <a
-                key={index}
-                href={`mailto:${email}`}
-                className="link link-hover"
-              >
-                {email}
-              </a>
+              <p key={index}>{email}</p>
             ))}
           </div>
         </div>

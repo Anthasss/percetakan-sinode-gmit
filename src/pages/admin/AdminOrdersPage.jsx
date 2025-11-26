@@ -207,7 +207,7 @@ export default function AdminOrdersPage() {
             <option value="completed">Siap diambil</option>
             <option value="cancelled">Dibatalkan</option>
           </select>
-          <span className="badge badge-neutral">
+          <span className="badge badge-neutral whitespace-nowrap">
             {filteredOrders.length} order{filteredOrders.length !== 1 ? 's' : ''}
           </span>
         </div>
