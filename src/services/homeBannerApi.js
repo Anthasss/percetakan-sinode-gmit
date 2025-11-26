@@ -11,10 +11,18 @@ const uploadHomeBanner = async (imageFile) => {
   const formData = new FormData();
   formData.append('image', imageFile);
 
+  console.log('Uploading file via API:', {
+    fileName: imageFile.name,
+    fileType: imageFile.type,
+    fileSize: imageFile.size
+  });
+
   const response = await axiosInstance.post(BASE_PATH, formData, {
     headers: {
-      'Content-Type': 'multipart/form-data',
+      'Content-Type': undefined, // Let browser set the correct multipart boundary
     },
+    // Add timeout for mobile networks
+    timeout: 60000, // 60 seconds
   });
 
   return response.data;
