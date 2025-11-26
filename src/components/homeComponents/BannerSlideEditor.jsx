@@ -10,36 +10,45 @@ export default function BannerSlideEditor({ slide, onDelete, onAdd, isAddSlide =
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
+    console.log('File selected:', file); // Debug log
+    
     if (file) {
-      // Validate file type - allow common variations (especially for mobile)
-      const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
-      const fileType = file.type.toLowerCase();
-      
-      // Also check file extension as fallback for mobile devices
-      const fileName = file.name.toLowerCase();
-      const validExtensions = ['.jpg', '.jpeg', '.png', '.webp'];
-      const hasValidExtension = validExtensions.some(ext => fileName.endsWith(ext));
-      
-      if (!validTypes.includes(fileType) && !hasValidExtension) {
-        console.error('Invalid file type:', file.type, 'File name:', file.name);
-        toast.error('Please upload a JPEG, PNG, or WebP image');
+      console.log('File details:', {
+        name: file.name,
+        type: file.type,
+        size: file.size,
+        lastModified: file.lastModified
+      });
+
+      // More lenient validation - just check if it's an image
+      if (!file.type.startsWith('image/')) {
+        console.error('Not an image file:', file.type);
+        toast.error('Please upload an image file');
         return;
       }
 
       // Validate file size (5MB max)
       const maxSize = 5 * 1024 * 1024; // 5MB in bytes
       if (file.size > maxSize) {
+        console.error('File too large:', file.size);
         toast.error('Image size must be less than 5MB');
         return;
       }
 
-      console.log('File accepted:', file.name, 'Type:', file.type, 'Size:', file.size);
+      console.log('File validation passed, setting preview...');
       setSelectedFile(file);
       const reader = new FileReader();
       reader.onloadend = () => {
+        console.log('Image preview loaded');
         setImagePreview(reader.result);
       };
+      reader.onerror = (error) => {
+        console.error('FileReader error:', error);
+        toast.error('Failed to read image file');
+      };
       reader.readAsDataURL(file);
+    } else {
+      console.log('No file selected');
     }
   };
 
@@ -49,9 +58,12 @@ export default function BannerSlideEditor({ slide, onDelete, onAdd, isAddSlide =
       return;
     }
 
+    console.log('Starting upload with file:', selectedFile.name);
+
     try {
       setIsUploading(true);
       const newBanner = await homeBannerApi.uploadHomeBanner(selectedFile);
+      console.log('Upload successful:', newBanner);
       onAdd(newBanner);
       toast.success('Banner uploaded successfully');
       
@@ -61,6 +73,11 @@ export default function BannerSlideEditor({ slide, onDelete, onAdd, isAddSlide =
       document.getElementById('add_slide_modal').close();
     } catch (error) {
       console.error('Error uploading banner:', error);
+      console.error('Error details:', {
+        message: error.message,
+        response: error.response?.data,
+        status: error.response?.status
+      });
       toast.error(error.response?.data?.error || 'Failed to upload banner');
     } finally {
       setIsUploading(false);
@@ -87,8 +104,7 @@ export default function BannerSlideEditor({ slide, onDelete, onAdd, isAddSlide =
               </label>
               <input
                 type="file"
-                accept="image/jpeg,image/jpg,image/png,image/webp"
-                capture="environment"
+                accept="image/*"
                 className="file-input file-input-bordered w-full"
                 onChange={handleImageUpload}
               />
