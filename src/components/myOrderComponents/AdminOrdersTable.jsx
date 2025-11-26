@@ -1,6 +1,9 @@
 import { FileText } from "lucide-react";
+import { useState } from "react";
+import ConfirmationModal from "./ConfirmationModal";
 
 export default function AdminOrdersTable({ orders, onViewDetail, onInputPrice, onCancelOrder, onChangeStatus, currentPage = 1, itemsPerPage = 10 }) {
+  const [confirmModal, setConfirmModal] = useState({ isOpen: false, orderId: null });
   const formatCurrency = (amount) => {
     if (amount === null || amount === undefined) {
       return '-';
@@ -105,7 +108,7 @@ export default function AdminOrdersTable({ orders, onViewDetail, onInputPrice, o
                       </button>
                       <button 
                         className="btn btn-sm btn-error"
-                        onClick={() => onCancelOrder(order.id)}
+                        onClick={() => setConfirmModal({ isOpen: true, orderId: order.id })}
                       >
                         Batalkan
                       </button>
@@ -118,6 +121,16 @@ export default function AdminOrdersTable({ orders, onViewDetail, onInputPrice, o
           })}
         </tbody>
       </table>
+      <ConfirmationModal
+        isOpen={confirmModal.isOpen}
+        onClose={() => setConfirmModal({ isOpen: false, orderId: null })}
+        onConfirm={() => {
+          onCancelOrder(confirmModal.orderId);
+          setConfirmModal({ isOpen: false, orderId: null });
+        }}
+        title="Konfirmasi Pembatalan"
+        message="Apakah Anda yakin ingin membatalkan pesanan ini? Tindakan ini tidak dapat dibatalkan."
+      />
     </div>
   );
 }
