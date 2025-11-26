@@ -77,7 +77,7 @@ export default function AdminOrdersTable({ orders, onViewDetail, onInputPrice, o
               </td>
               <td>{formatCurrency(order.price)}</td>
               <td>
-                <span className={`badge ${getStatusBadge(order.status)}`}>
+                <span className={`badge ${getStatusBadge(order.status)} whitespace-nowrap`}>
                   {getStatusLabel(order.status)}
                 </span>
               </td>
