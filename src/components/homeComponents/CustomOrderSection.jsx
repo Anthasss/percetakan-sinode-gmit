@@ -1,8 +1,7 @@
 export default function CustomOrderSection() {
   const admins = [
-    { name: "Samuel", phoneNumber: "+6282237602747" },
-    { name: "Koral", phoneNumber: "+6282340057174" },
-    { name: "Kimi", phoneNumber: "+6282339201795" },
+    { name: "Kak Domi", phoneNumber: "+6285138824884 " },
+    { name: "Pak Deni", phoneNumber: "+628113878277" },
   ];
 
   const handleCustomOrder = (phoneNumber) => {
@@ -28,7 +27,7 @@ export default function CustomOrderSection() {
                   onClick={() => handleCustomOrder(admin.phoneNumber, admin.name)}
                   className="bg-white text-blue-600 font-semibold py-3 px-8 rounded-lg hover:bg-blue-50 transition-colors duration-200 shadow-md hover:shadow-lg transform hover:scale-105"
                 >
-                  Chat with {admin.name}
+                  Chat dengan {admin.name}
                 </button>
               ))}
             </div>
