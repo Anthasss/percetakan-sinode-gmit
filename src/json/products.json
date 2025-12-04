@@ -3,14 +3,14 @@
     {
       "id": 1,
       "title": "Print Biasa",
-      "image": ["https://s3.nevaobjects.id/jasacetaksinodeobject/Print%201.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/Print%202.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/Print%203.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/Print%204.webp","https://s3.nevaobjects.id/jasacetaksinodeobject  /Print%205.webp"],
+      "image": ["https://s3.nevaobjects.id/jasacetaksinodeobject/Print%201.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/Print%202.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/Print%203.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/Print%204.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/Print%205.webp"],
       "category": "print",
       "formComponent": "PrintBiasaForm"
     },
     {
       "id": 2,
       "title": "Buku",
-      "image": ["https://s3.nevaobjects.id/jasacetaksinodeobject/book1.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/book2.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/book3.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/p_bookContent.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/p_bookCover.webp"],
+      "image": ["https://s3.nevaobjects.id/jasacetaksinodeobject/p_book.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/p_book2.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/p_book3.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/p_bookContent.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/p_bookCover.webp"],
       "category": "print",
       "formComponent": "BukuForm"
     },
