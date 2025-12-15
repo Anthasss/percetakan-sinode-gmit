@@ -48,19 +48,32 @@ export default function SablonBajuForm({ onSubmit }) {
         
         <DropdownInput
           label="Pesan Baju"
-          options={["Ya", "Tidak"]}
+          options={["Pesan dengan baju", "Hanya sablon"]}
           value={formData.pesanBaju}
           onChange={(value) => setFormData({ ...formData, pesanBaju: value })}
           placeholder="Apakah perlu pesan baju?"
         />
         
-        <DropdownInput
-          label="Warna Baju"
-          options={["(Belum ditentukan)"]}
-          value={formData.warnaBaju}
-          onChange={(value) => setFormData({ ...formData, warnaBaju: value })}
-          placeholder="Pilih warna baju"
-        />
+        {formData.pesanBaju === "Pesan dengan baju" && (
+          <div className="flex flex-col gap-2">
+            <label className="text-sm font-medium">Warna Baju</label>
+            <input
+              type="text"
+              value={formData.warnaBaju}
+              onChange={(e) => setFormData({ ...formData, warnaBaju: e.target.value })}
+              placeholder="Contoh: Hitam polos, Putih dengan logo merah, Navy blue dengan kombinasi abu-abu, dll."
+              className="input input-bordered w-full"
+            />
+            <p className="text-xs text-gray-500">Isi sedetail mungkin (warna utama, kombinasi warna, detail logo/desain, dll.)</p>
+            <p className="text text-red-500">MOHON HUBUNGI ADMIN UNTUK MENANYAKAN KETERSEDIAAN WARNA BAJU SEBELUM MEMESAN.</p>
+          </div>
+        )}
+
+        {formData.pesanBaju === "Hanya sablon" && (
+          <div className="flex flex-col gap-2">
+            <p className="text text-red-500">MOHON SEGERA MELAKUKAN PENGANTARAN BAJU KE PERCETAKAN SINODE GMIT, MAKSIMAL 7 HARI SETELAH PEMESANAN</p>
+          </div>
+        )}
 
         {/* Size Breakdown Section */}
         <div className="flex flex-col gap-2">
@@ -117,6 +130,18 @@ export default function SablonBajuForm({ onSubmit }) {
           accept=".pdf,.jpg,.jpeg,.png"
         />
       </div>
+      <div className="form-control w-full">
+          <label className="label">
+            <span className="label-text font-semibold">Deskripsi tambahan (opsional)</span>
+          </label>
+          <input
+            type="text"
+            className="input input-bordered w-full"
+            placeholder="Deskripsikan tambahan untuk pesanan"
+            value={formData.model}
+            onChange={(e) => setFormData({ ...formData, model: e.target.value })}
+          />
+        </div>
       <button type="submit" className="btn btn-primary mt-auto">
         Pesan
       </button>
