@@ -3,98 +3,98 @@
     {
       "id": 1,
       "title": "Print Biasa",
-      "image": ["https://s3.nevaobjects.id/sinodegmitobject/Print%201.webp","https://s3.nevaobjects.id/sinodegmitobject/Print%202.webp","https://s3.nevaobjects.id/sinodegmitobject/Print%203.webp","https://s3.nevaobjects.id/sinodegmitobject/Print%204.webp","https://s3.nevaobjects.id/sinodegmitobject/Print%205.webp"],
+      "image": ["https://s3.nevaobjects.id/jasacetaksinodeobject/Print%201.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/Print%202.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/Print%203.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/Print%204.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/Print%205.webp"],
       "category": "print",
       "formComponent": "PrintBiasaForm"
     },
     {
       "id": 2,
       "title": "Buku",
-      "image": ["https://s3.nevaobjects.id/sinodegmitobject/book1.webp","https://s3.nevaobjects.id/sinodegmitobject/book2.webp","https://s3.nevaobjects.id/sinodegmitobject/book3.webp","https://s3.nevaobjects.id/sinodegmitobject/p_bookContent.webp","https://s3.nevaobjects.id/sinodegmitobject/p_bookCover.webp"],
+      "image": ["https://s3.nevaobjects.id/jasacetaksinodeobject/p_book.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/p_book2.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/p_book3.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/p_bookContent.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/p_bookCover.webp"],
       "category": "print",
       "formComponent": "BukuForm"
     },
     {
       "id": 3,
       "title": "Undangan",
-      "image": ["https://s3.nevaobjects.id/sinodegmitobject/Undangan%201.webp","https://s3.nevaobjects.id/sinodegmitobject/Undangan%202.webp","https://s3.nevaobjects.id/sinodegmitobject/Undangan%203.webp","https://s3.nevaobjects.id/sinodegmitobject/Undangan%204.webp","https://s3.nevaobjects.id/sinodegmitobject/Undangan%205.webp"],
+      "image": ["https://s3.nevaobjects.id/jasacetaksinodeobject/Undangan%201.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/Undangan%202.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/Undangan%203.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/Undangan%204.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/Undangan%205.webp"],
       "category": "print",
       "formComponent": "UndanganForm"
     },
     {
       "id": 4,
       "title": "Sticker",
-      "image": ["https://s3.nevaobjects.id/sinodegmitobject/Sticker%201.webp","https://s3.nevaobjects.id/sinodegmitobject/Sticker%202.webp","https://s3.nevaobjects.id/sinodegmitobject/Sticker%203.webp","https://s3.nevaobjects.id/sinodegmitobject/Sticker%204.webp","https://s3.nevaobjects.id/sinodegmitobject/Sticker%205.webp"],
+      "image": ["https://s3.nevaobjects.id/jasacetaksinodeobject/Sticker%201.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/Sticker%202.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/Sticker%203.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/Sticker%204.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/Sticker%205.webp"],
       "category": "print",
       "formComponent": "StickerForm"
     },
     {
       "id": 5,
       "title": "Spanduk/Baliho",
-      "image": ["https://s3.nevaobjects.id/sinodegmitobject/p_baliho.webp","https://s3.nevaobjects.id/sinodegmitobject/p_baliho2.webp"],
+      "image": ["https://s3.nevaobjects.id/jasacetaksinodeobject/p_baliho.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/p_baliho2.webp"],
       "category": "outdoor",
       "formComponent": "SpandukBalihoForm"
     },
     {
       "id": 6,
       "title": "Roll Banner",
-      "image": ["https://s3.nevaobjects.id/sinodegmitobject/Roll%20Banner%201.webp","https://s3.nevaobjects.id/sinodegmitobject/Roll%20Banner%202.webp","https://s3.nevaobjects.id/sinodegmitobject/Roll%20Banner%203.webp","https://s3.nevaobjects.id/sinodegmitobject/Roll%20Banner%204.webp","https://s3.nevaobjects.id/sinodegmitobject/Roll%20Banner%205.webp"],
+      "image": ["https://s3.nevaobjects.id/jasacetaksinodeobject/Roll%20Banner%201.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/Roll%20Banner%202.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/Roll%20Banner%203.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/Roll%20Banner%204.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/Roll%20Banner%205.webp"],
       "category": "outdoor",
       "formComponent": "RollBannerForm"
     },
     {
       "id": 7,
       "title": "X-Banner",
-      "image": ["https://s3.nevaobjects.id/sinodegmitobject/X-Banner%201.webp","https://s3.nevaobjects.id/sinodegmitobject/X-Banner%202.webp","https://s3.nevaobjects.id/sinodegmitobject/X-Banner%203.webp","https://s3.nevaobjects.id/sinodegmitobject/X-Banner%204.webp","https://s3.nevaobjects.id/sinodegmitobject/X-Banner%205.webp"],
+      "image": ["https://s3.nevaobjects.id/jasacetaksinodeobject/X-Banner%201.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/X-Banner%202.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/X-Banner%203.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/X-Banner%204.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/X-Banner%205.webp"],
       "category": "outdoor",
       "formComponent": "XBannerForm"
     },
     {
       "id": 8,
       "title": "Neon Box",
-      "image": ["https://s3.nevaobjects.id/sinodegmitobject/Neon%20Box%201.webp","https://s3.nevaobjects.id/sinodegmitobject/Neon%20Box%202.webp","https://s3.nevaobjects.id/sinodegmitobject/Neon%20Box%203.webp","https://s3.nevaobjects.id/sinodegmitobject/Neon%20Box%204.webp","https://s3.nevaobjects.id/sinodegmitobject/Neon%20Box%205.webp"],
+      "image": ["https://s3.nevaobjects.id/jasacetaksinodeobject/Neon%20Box%201.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/Neon%20Box%202.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/Neon%20Box%203.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/Neon%20Box%204.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/Neon%20Box%205.webp"],
       "category": "outdoor",
       "formComponent": "NeonBoxForm"
     },
     {
       "id": 9,
       "title": "Krans Bunga",
-      "image": ["https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"],
+      "image": ["https://s3.nevaobjects.id/jasacetaksinodeobject/Veiled-Memory-600x600.webp"],
       "category": "outdoor",
       "formComponent": "KransBungaForm"
     },
     {
       "id": 10,
       "title": "Batu Nisan/Prasasti",
-      "image": ["https://s3.nevaobjects.id/sinodegmitobject/p_batuPrasastiorNisan.webp"],
+      "image": ["https://s3.nevaobjects.id/jasacetaksinodeobject/p_batuPrasastiorNisan.webp"],
       "category": "outdoor",
       "formComponent": "BatuNisanForm"
     },
     {
       "id": 11,
       "title": "Stempel",
-      "image": ["https://s3.nevaobjects.id/sinodegmitobject/stamples%20%281%29.webp"],
+      "image": ["https://s3.nevaobjects.id/jasacetaksinodeobject/stamples%20%281%29.webp"],
       "category": "others",
       "formComponent": "StempelForm"
     },
     {
       "id": 12,
       "title": "Sablon Gelas",
-      "image": ["https://s3.nevaobjects.id/sinodegmitobject/p_sablonGelas%20%281%29.webp"],
+      "image": ["https://s3.nevaobjects.id/jasacetaksinodeobject/p_sablonGelas%20%281%29.webp"],
       "category": "others",
       "formComponent": "SablonGelasForm"
     },
     {
       "id": 13,
       "title": "Sablon Piring",
-      "image": ["https://s3.nevaobjects.id/sinodegmitobject/p_sablonPiring1.webp", "https://s3.nevaobjects.id/sinodegmitobject/Piring%201.webp", "https://s3.nevaobjects.id/sinodegmitobject/Piring%202.webp", "https://s3.nevaobjects.id/sinodegmitobject/Piring%203.webp","https://s3.nevaobjects.id/sinodegmitobject/Piring%204.webp"],
+      "image": ["https://s3.nevaobjects.id/jasacetaksinodeobject/p_sablonPiring1.webp", "https://s3.nevaobjects.id/jasacetaksinodeobject/Piring%201.webp", "https://s3.nevaobjects.id/jasacetaksinodeobject/Piring%202.webp", "https://s3.nevaobjects.id/jasacetaksinodeobject/Piring%203.webp","https://s3.nevaobjects.id/jasacetaksinodeobject/Piring%204.webp"],
       "category": "others",
       "formComponent": "SablonPiringForm"
     },
     {
       "id": 14,
       "title": "Sablon Baju",
-      "image": ["https://s3.nevaobjects.id/sinodegmitobject/p_sablonBaju%20%281%29.webp"],
+      "image": ["https://s3.nevaobjects.id/jasacetaksinodeobject/p_sablonBaju%20%281%29.webp"],
       "category": "others",
       "formComponent": "SablonBajuForm"
     }
