@@ -1,7 +1,7 @@
 export default function CustomOrderSection() {
   const admins = [
     { name: "Kak Domi", phoneNumber: "+6285138824884" },
-    { name: "Kimi", phoneNumber: "+628113878277" },
+    { name: "Pak Deni", phoneNumber: "+628113878277" },
   ];
 
   const handleCustomOrder = (phoneNumber) => {
