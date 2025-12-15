@@ -6,7 +6,8 @@ export default function PrintBiasaForm({ onSubmit, isSubmitting }) {
   const [formData, setFormData] = useState({
     tipeKertas: "",
     jenisWarna: "",
-    file: null
+    file: null,
+    deskripsi: ""
   });
 
   const handleSubmit = (e) => {
@@ -45,8 +46,8 @@ export default function PrintBiasaForm({ onSubmit, isSubmitting }) {
             type="text"
             className="input input-bordered w-full"
             placeholder="Deskripsikan tambahan untuk pesanan"
-            value={formData.model}
-            onChange={(e) => setFormData({ ...formData, model: e.target.value })}
+            value={formData.deskripsi}
+            onChange={(e) => setFormData({ ...formData, deskripsi: e.target.value })}
           />
         </div>
       <button 

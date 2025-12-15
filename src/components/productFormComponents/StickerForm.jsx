@@ -5,7 +5,8 @@ import FileUploadInput from "../productUserInputComponents/FileUploadInput";
 export default function StickerForm({ onSubmit }) {
   const [formData, setFormData] = useState({
     tipeBahan: "",
-    file: null
+    file: null,
+    deskripsi: ""
   });
 
   const handleSubmit = (e) => {
@@ -37,8 +38,8 @@ export default function StickerForm({ onSubmit }) {
             type="text"
             className="input input-bordered w-full"
             placeholder="Deskripsikan tambahan untuk pesanan"
-            value={formData.model}
-            onChange={(e) => setFormData({ ...formData, model: e.target.value })}
+            value={formData.deskripsi}
+            onChange={(e) => setFormData({ ...formData, deskripsi: e.target.value })}
           />
         </div>
       <button type="submit" className="btn btn-primary mt-auto">

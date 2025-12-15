@@ -60,6 +60,7 @@ export default function OrderDetailModal({ order }) {
   const specsWithoutFiles = { ...specifications };
   delete specsWithoutFiles.files;
   
+  
   const productTitle = order.productTitle || order.product?.title || `Product #${order.productId}`;
   const quantity = order.orderSpecifications?.quantity || order.quantity || '-';
   const orderDate = order.createdAt || order.orderDate;
@@ -106,12 +107,20 @@ export default function OrderDetailModal({ order }) {
                 
                 <h4 className="font-bold text-lg">Spesifikasi Pesanan</h4>
                 <div className="bg-base-200 p-4 rounded-lg space-y-2">
-                  {Object.entries(specsWithoutFiles).map(([key, value]) => (
-                    <div key={key} className="grid grid-cols-2 gap-2">
-                      <div className="font-semibold capitalize">{key}:</div>
-                      <div>{typeof value === 'object' ? JSON.stringify(value) : value}</div>
-                    </div>
-                  ))}
+                  {Object.entries(specsWithoutFiles).map(([key, value]) => {
+                    // Format key dengan spasi
+                    const formattedKey = key
+                      .replace(/([A-Z])/g, ' $1') // Tambah spasi sebelum huruf kapital
+                      .replace(/^./, str => str.toUpperCase()) // Kapitalisasi huruf pertama
+                      .trim();
+                    
+                    return (
+                      <div key={key} className="grid grid-cols-2 gap-2">
+                        <div className="font-semibold">{formattedKey}:</div>
+                        <div>{typeof value === 'object' ? JSON.stringify(value) : value}</div>
+                      </div>
+                    );
+                  })}
                 </div>
               </>
             )}
