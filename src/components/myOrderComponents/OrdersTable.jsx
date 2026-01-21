@@ -1,37 +1,13 @@
 import { FileText } from "lucide-react";
+import { ORDER_STATUS, getStatusBadge } from "../../utils/orderStatus";
 
-export default function OrdersTable({ orders, onViewDetail, onCancelOrder, currentPage = 1, itemsPerPage = 10 }) {
+export default function OrdersTable({ orders, onViewDetail, onCancelOrder, onApproveOrder, currentPage = 1, itemsPerPage = 10 }) {
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat('id-ID', {
       style: 'currency',
       currency: 'IDR',
       minimumFractionDigits: 0
     }).format(amount);
-  };
-
-  const getStatusBadge = (status) => {
-    const statusColors = {
-      "pending": "badge-info",
-      "processing": "badge-warning",
-      "completed": "badge-success",
-      "cancelled": "badge-error",
-      // Legacy Indonesian status (for backward compatibility)
-      "Sedang Diproses": "badge-warning",
-      "Selesai": "badge-success",
-      "Menunggu Pembayaran": "badge-info",
-      "Dibatalkan": "badge-error"
-    };
-    return statusColors[status] || "badge-ghost";
-  };
-
-  const getStatusLabel = (status) => {
-    const statusLabels = {
-      "pending": "Menunggu Pembayaran",
-      "processing": "Sedang Diproses",
-      "completed": "Selesai",
-      "cancelled": "Dibatalkan"
-    };
-    return statusLabels[status] || status;
   };
 
   return (
@@ -70,19 +46,27 @@ export default function OrdersTable({ orders, onViewDetail, onCancelOrder, curre
               <td>{order.price ? formatCurrency(order.price) : 'Belum ditentukan'}</td>
               <td>
                 <span className={`badge ${getStatusBadge(order.status)}`}>
-                  {getStatusLabel(order.status)}
+                  {order.status}
                 </span>
               </td>
               <td>
-                <div className="flex gap-2">
+                <div className="flex gap-2 flex-wrap">
                   <button 
                     className="btn btn-sm btn-info"
                     onClick={() => onViewDetail(order)}
                   >
                     Detail
                   </button>
-                  {order.status !== "cancelled" && order.status !== "completed" && 
-                   order.status !== "Dibatalkan" && order.status !== "Selesai" && (
+                  {order.status === ORDER_STATUS.WAITING_APPROVAL && (
+                    <button 
+                      className="btn btn-sm btn-success"
+                      onClick={() => onApproveOrder(order.id)}
+                    >
+                      Setuju
+                    </button>
+                  )}
+                  {order.status !== ORDER_STATUS.CANCELLED && 
+                   order.status !== ORDER_STATUS.COMPLETED && (
                     <button 
                       className="btn btn-sm btn-error"
                       onClick={() => onCancelOrder(order.id)}

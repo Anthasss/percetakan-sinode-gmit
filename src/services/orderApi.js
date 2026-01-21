@@ -127,6 +127,51 @@ export const orderApi = {
     }
   },
 
+  // Admin: Set price for order
+  setPrice: async (id, price) => {
+    try {
+      const response = await axiosInstance.patch(`/api/orders/${id}/set-price`, { price });
+      return response.data;
+    } catch (error) {
+      const errorMsg = error.response?.data?.message || error.response?.statusText || error.message;
+      throw new Error(`Failed to set order price: ${errorMsg}`);
+    }
+  },
+
+  // Update order status
+  updateStatus: async (id, status) => {
+    try {
+      const response = await axiosInstance.patch(`/api/orders/${id}/status`, { status });
+      return response.data;
+    } catch (error) {
+      const errorMsg = error.response?.data?.message || error.response?.statusText || error.message;
+      throw new Error(`Failed to update order status: ${errorMsg}`);
+    }
+  },
+
+  // Customer: Approve order price
+  approve: async (id) => {
+    try {
+      const response = await axiosInstance.patch(`/api/orders/${id}/approve`);
+      return response.data;
+    } catch (error) {
+      const errorMsg = error.response?.data?.message || error.response?.statusText || error.message;
+      throw new Error(`Failed to approve order: ${errorMsg}`);
+    }
+  },
+
+  // Cancel order with reason
+  cancel: async (id, reason = '') => {
+    try {
+      const response = await axiosInstance.patch(`/api/orders/${id}/cancel`, { reason });
+      return response.data;
+    } catch (error) {
+      const errorMsg = error.response?.data?.message || error.response?.statusText || error.message;
+      throw new Error(`Failed to cancel order: ${errorMsg}`);
+    }
+  },
+
+  // Legacy: Update price (kept for backward compatibility)
   updatePrice: async (id, price) => {
     try {
       const response = await axiosInstance.patch(`/api/orders/${id}/price`, { price });

@@ -19,13 +19,6 @@ export default function SpandukBalihoForm({ onSubmit }) {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4 h-full">
       <div className="flex flex-col gap-4">
-        <DropdownInput
-          label="Bahan"
-          options={["(Menunggu konfirmasi)"]}
-          value={formData.bahan}
-          onChange={(value) => setFormData({ ...formData, bahan: value })}
-          placeholder="Pilih bahan"
-        />
         <div className="grid grid-cols-2 gap-4">
           <NumberInput
             label="Panjang"

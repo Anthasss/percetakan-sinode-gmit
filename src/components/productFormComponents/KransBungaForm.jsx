@@ -30,10 +30,11 @@ export default function KransBungaForm({ onSubmit }) {
           />
         </div>
         <FileUploadInput
-          label="File Foto (opsional)"
+          label="File Foto Orang atau Logo yang ingin dipasang (opsional)"
           onChange={(files) => setFormData({ ...formData, fileFoto: files })}
           accept=".jpg,.jpeg,.png"
         />
+        
         <div className="form-control w-full">
           <label className="label">
             <span className="label-text font-semibold">Ukuran Foto (jika ada)</span>
@@ -48,7 +49,7 @@ export default function KransBungaForm({ onSubmit }) {
         </div>
         <div className="form-control w-full">
           <label className="label">
-            <span className="label-text font-semibold">Model</span>
+            <span className="label-text font-semibold">Deskripsi Model (Opsional)</span>
           </label>
           <input
             type="text"
@@ -58,6 +59,11 @@ export default function KransBungaForm({ onSubmit }) {
             onChange={(e) => setFormData({ ...formData, model: e.target.value })}
           />
         </div>
+        <FileUploadInput
+          label="File Foto contoh model (opsional)"
+          onChange={(files) => setFormData({ ...formData, fileFoto: files })}
+          accept=".jpg,.jpeg,.png"
+        />
       </div>
       <button type="submit" className="btn btn-primary mt-auto">
         Pesan

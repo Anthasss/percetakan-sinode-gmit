@@ -1,17 +1,15 @@
 import { useState } from 'react';
 import { X } from "lucide-react";
+import { ORDER_STATUS, getAvailableStatuses, getStatusBadge } from '../../utils/orderStatus';
 
 export default function StatusUpdateModal({ order, onSaveStatus }) {
   const [selectedStatus, setSelectedStatus] = useState('');
   const [error, setError] = useState('');
 
-  const statusOptions = [
-    { value: 'pending', label: 'Menunggu harga dari admin' },
-    { value: 'processing', label: 'Dalam progres' },
-    { value: 'completed', label: 'Siap diambil' },
-  ];
-
   if (!order) return null;
+
+  // Get available statuses based on current status
+  const availableStatuses = getAvailableStatuses(order.status);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -67,57 +65,63 @@ export default function StatusUpdateModal({ order, onSaveStatus }) {
               
               <div className="font-semibold">Status Saat Ini:</div>
               <div>
-                <span className="badge badge-info">
-                  {getCurrentStatusLabel(order.status)}
+                <span className={`badge ${getStatusBadge(order.status)}`}>
+                  {order.status}
                 </span>
               </div>
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text font-semibold">Status Baru</span>
-              </label>
-              <select
-                className={`select select-bordered w-full ${error ? 'select-error' : ''}`}
-                value={selectedStatus}
-                onChange={(e) => {
-                  setSelectedStatus(e.target.value);
-                  setError('');
-                }}
-                autoFocus
-              >
-                <option value="">Pilih status</option>
-                {statusOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-              {error && (
+          {availableStatuses.length === 0 ? (
+            <div className="alert alert-warning">
+              <span>Tidak ada status yang dapat diubah dari status saat ini.</span>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="form-control">
                 <label className="label">
-                  <span className="label-text-alt text-error">{error}</span>
+                  <span className="label-text font-semibold">Status Baru</span>
                 </label>
-              )}
+                <select
+                  className={`select select-bordered w-full ${error ? 'select-error' : ''}`}
+                  value={selectedStatus}
+                  onChange={(e) => {
+                    setSelectedStatus(e.target.value);
+                    setError('');
+                  }}
+                  autoFocus
+                >
+                  <option value="">Pilih status</option>
+                  {availableStatuses.map((status) => (
+                    <option key={status} value={status}>
+                      {status}
+                    </option>
+                  ))}
+                </select>
+                {error && (
+                  <label className="label">
+                    <span className="label-text-alt text-error">{error}</span>
+                  </label>
+                )}
             </div>
 
-            <div className="modal-action">
-              <button
-                type="button"
-                className="btn btn-ghost"
-                onClick={() => {
-                  document.getElementById('status_update_modal').close();
-                  handleClose();
-                }}
-              >
-                Batal
-              </button>
-              <button type="submit" className="btn btn-primary">
-                Simpan Status
-              </button>
-            </div>
-          </form>
+              <div className="modal-action">
+                <button
+                  type="button"
+                  className="btn btn-ghost"
+                  onClick={() => {
+                    document.getElementById('status_update_modal').close();
+                    handleClose();
+                  }}
+                >
+                  Batal
+                </button>
+                <button type="submit" className="btn btn-primary">
+                  Simpan Status
+                </button>
+              </div>
+            </form>
+          )}
         </div>
       </div>
       <form method="dialog" className="modal-backdrop">

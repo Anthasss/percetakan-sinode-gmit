@@ -52,18 +52,41 @@ export default function MyOrderPage() {
   };
 
   const handleCancelOrder = async (orderId) => {
+    const reason = prompt('Alasan pembatalan (opsional):');
+    if (reason === null) return; // User cancelled the prompt
+    
     try {
-      await orderApi.update(orderId, { status: "cancelled" });
+      await orderApi.cancel(orderId, reason);
       
       // Update local state
       setOrders(orders.map(order => 
-        order.id === orderId ? { ...order, status: "cancelled" } : order
+        order.id === orderId ? { ...order, status: "Dibatalkan" } : order
       ));
       
-      toast.success('Order cancelled successfully');
+      toast.success('Pesanan berhasil dibatalkan');
     } catch (err) {
       console.error('Error cancelling order:', err);
-      toast.error('Failed to cancel order. Please try again.');
+      toast.error(err.message || 'Gagal membatalkan pesanan');
+    }
+  };
+
+  const handleApproveOrder = async (orderId) => {
+    if (!confirm('Apakah Anda setuju dengan harga yang ditetapkan?')) {
+      return;
+    }
+    
+    try {
+      const updatedOrder = await orderApi.approve(orderId);
+      
+      // Update local state
+      setOrders(orders.map(order => 
+        order.id === orderId ? updatedOrder : order
+      ));
+      
+      toast.success('Pesanan berhasil disetujui');
+    } catch (err) {
+      console.error('Error approving order:', err);
+      toast.error(err.message || 'Gagal menyetujui pesanan');
     }
   };
 
@@ -106,6 +129,7 @@ export default function MyOrderPage() {
               orders={currentOrders}
               onViewDetail={handleViewDetail}
               onCancelOrder={handleCancelOrder}
+              onApproveOrder={handleApproveOrder}
               currentPage={currentPage}
               itemsPerPage={itemsPerPage}
             />
