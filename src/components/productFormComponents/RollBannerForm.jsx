@@ -39,6 +39,30 @@ export default function RollBannerForm({ onSubmit }) {
           accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
         />
       </div>
+      <div className="form-control w-full">
+          <label className="label">
+            <span className="label-text font-semibold">Deskripsi tambahan (opsional)</span>
+          </label>
+          <input
+            type="text"
+            className="input input-bordered w-full"
+            placeholder="Deskripsikan tambahan untuk pesanan"
+            value={formData.model}
+            onChange={(e) => setFormData({ ...formData, model: e.target.value })}
+          />
+        </div>
+        <div className="form-control w-full">
+          <label className="label">
+            <span className="label-text font-semibold">Deskripsi tambahan (opsional)</span>
+          </label>
+          <input
+            type="text"
+            className="input input-bordered w-full"
+            placeholder="Deskripsikan tambahan untuk pesanan"
+            value={formData.model}
+            onChange={(e) => setFormData({ ...formData, model: e.target.value })}
+          />
+        </div>
       <button type="submit" className="btn btn-primary mt-auto">
         Pesan
       </button>

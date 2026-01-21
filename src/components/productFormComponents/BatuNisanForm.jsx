@@ -53,6 +53,31 @@ export default function BatuNisanForm({ onSubmit }) {
           onChange={(value) => setFormData({ ...formData, model: value })}
           placeholder="Pilih model"
         />
+        {formData.model === "Lainnya" && (
+          <div className="flex flex-col gap-2">
+            <label className="text-sm font-medium">Model Custom</label>
+            <input
+              type="text"
+              value={formData.customModel}
+              onChange={(e) => setFormData({ ...formData, customModel: e.target.value })}
+              placeholder="Masukkan nama model custom"
+              className="input input-bordered w-full"
+            />
+            <p className="text text-red-500">MOHON HUBUNGI ADMIN UNTUK KONFIRMASI KEJELASAN MODEL.</p>
+          </div>
+        )}
+        <div className="form-control w-full">
+          <label className="label">
+            <span className="label-text font-semibold">Deskripsi tambahan (opsional)</span>
+          </label>
+          <input
+            type="text"
+            className="input input-bordered w-full"
+            placeholder="Deskripsikan tambahan untuk pesanan"
+            value={formData.model}
+            onChange={(e) => setFormData({ ...formData, model: e.target.value })}
+          />
+        </div>
       </div>
       <button type="submit" className="btn btn-primary mt-auto">
         Pesan

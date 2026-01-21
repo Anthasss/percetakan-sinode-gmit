@@ -79,18 +79,21 @@ export default function AdminOrdersPage() {
   };
 
   const handleCancelOrder = async (orderId) => {
+    const reason = prompt('Alasan pembatalan (opsional):');
+    if (reason === null) return; // User cancelled the prompt
+    
     try {
-      await orderApi.update(orderId, { status: "cancelled" });
+      await orderApi.cancel(orderId, reason);
       
       // Update local state
       setOrders(orders.map(order => 
-        order.id === orderId ? { ...order, status: "cancelled" } : order
+        order.id === orderId ? { ...order, status: "Dibatalkan" } : order
       ));
       
-      toast.success('Order cancelled successfully');
+      toast.success('Pesanan berhasil dibatalkan');
     } catch (err) {
       console.error('Error cancelling order:', err);
-      toast.error('Failed to cancel order. Please try again.');
+      toast.error(err.message || 'Gagal membatalkan pesanan');
     }
   };
 
@@ -111,36 +114,34 @@ export default function AdminOrdersPage() {
 
   const handleSavePrice = async (orderId, price) => {
     try {
-      await orderApi.updatePrice(orderId, price);
+      // Use new setPrice endpoint which automatically changes status
+      const updatedOrder = await orderApi.setPrice(orderId, price);
       
-      // Automatically set status to processing when price is set
-      await orderApi.update(orderId, { status: "processing" });
-      
-      // Update local state
+      // Update local state with the updated order
       setOrders(orders.map(order => 
-        order.id === orderId ? { ...order, price: price, status: "processing" } : order
+        order.id === orderId ? updatedOrder : order
       ));
       
-      toast.success('Price updated and status set to "Dalam progres"');
+      toast.success('Harga berhasil ditetapkan dan status diubah ke "Menunggu Persetujuan Pembeli"');
     } catch (err) {
-      console.error('Error updating price:', err);
-      toast.error('Failed to update price. Please try again.');
+      console.error('Error setting price:', err);
+      toast.error(err.message || 'Gagal menetapkan harga');
     }
   };
 
   const handleSaveStatus = async (orderId, status) => {
     try {
-      await orderApi.update(orderId, { status });
+      const updatedOrder = await orderApi.updateStatus(orderId, status);
       
       // Update local state
       setOrders(orders.map(order => 
-        order.id === orderId ? { ...order, status: status } : order
+        order.id === orderId ? updatedOrder : order
       ));
       
-      toast.success('Status updated successfully');
+      toast.success('Status berhasil diupdate');
     } catch (err) {
       console.error('Error updating status:', err);
-      toast.error('Failed to update status. Please try again.');
+      toast.error(err.message || 'Gagal mengupdate status');
     }
   };
 
@@ -202,10 +203,12 @@ export default function AdminOrdersPage() {
             onChange={handleStatusFilterChange}
           >
             <option value="all">Semua Status</option>
-            <option value="pending">Menunggu harga dari admin</option>
-            <option value="processing">Dalam progres</option>
-            <option value="completed">Siap diambil</option>
-            <option value="cancelled">Dibatalkan</option>
+            <option value="Menunggu Harga dari Admin">Menunggu Harga dari Admin</option>
+            <option value="Menunggu Persetujuan Pembeli">Menunggu Persetujuan Pembeli</option>
+            <option value="Sedang Diproses">Sedang Diproses</option>
+            <option value="Menunggu Pembayaran">Menunggu Pembayaran</option>
+            <option value="Selesai">Selesai</option>
+            <option value="Dibatalkan">Dibatalkan</option>
           </select>
           <span className="badge badge-neutral whitespace-nowrap">
             {filteredOrders.length} order{filteredOrders.length !== 1 ? 's' : ''}

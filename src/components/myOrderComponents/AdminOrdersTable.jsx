@@ -1,6 +1,7 @@
 import { FileText } from "lucide-react";
 import { useState } from "react";
 import ConfirmationModal from "./ConfirmationModal";
+import { ORDER_STATUS, getStatusBadge } from "../../utils/orderStatus";
 
 export default function AdminOrdersTable({ orders, onViewDetail, onInputPrice, onCancelOrder, onChangeStatus, currentPage = 1, itemsPerPage = 10 }) {
   const [confirmModal, setConfirmModal] = useState({ isOpen: false, orderId: null });
@@ -13,31 +14,6 @@ export default function AdminOrdersTable({ orders, onViewDetail, onInputPrice, o
       currency: 'IDR',
       minimumFractionDigits: 0
     }).format(amount);
-  };
-
-  const getStatusBadge = (status) => {
-    const statusColors = {
-      "pending": "badge-warning",
-      "processing": "badge-info",
-      "completed": "badge-success",
-      "cancelled": "badge-error",
-      // Legacy Indonesian status
-      "Menunggu Konfirmasi": "badge-warning",
-      "Sedang Diproses": "badge-info",
-      "Selesai": "badge-success",
-      "Dibatalkan": "badge-error"
-    };
-    return statusColors[status] || "badge-ghost";
-  };
-
-  const getStatusLabel = (status) => {
-    const statusLabels = {
-      "pending": "Menunggu harga dari admin",
-      "processing": "Dalam progres",
-      "completed": "Siap diambil",
-      "cancelled": "Dibatalkan"
-    };
-    return statusLabels[status] || status;
   };
 
   return (
@@ -78,7 +54,7 @@ export default function AdminOrdersTable({ orders, onViewDetail, onInputPrice, o
               <td>{formatCurrency(order.price)}</td>
               <td>
                 <span className={`badge ${getStatusBadge(order.status)} whitespace-nowrap`}>
-                  {getStatusLabel(order.status)}
+                  {order.status}
                 </span>
               </td>
               <td>
@@ -89,8 +65,7 @@ export default function AdminOrdersTable({ orders, onViewDetail, onInputPrice, o
                   >
                     Detail
                   </button>
-                  {order.status !== "cancelled" && order.status !== "Dibatalkan" && 
-                  order.status !== "completed" && order.status !== "Selesai" && (
+                  {order.status === ORDER_STATUS.WAITING_PRICE && (
                     <button 
                       className="btn btn-sm btn-primary"
                       onClick={() => onInputPrice(order)}
@@ -98,7 +73,8 @@ export default function AdminOrdersTable({ orders, onViewDetail, onInputPrice, o
                       Tetapkan Harga
                     </button>
                   )}
-                  {order.status !== "cancelled" && order.status !== "Dibatalkan" && (
+                  {order.status !== ORDER_STATUS.CANCELLED && 
+                   order.status !== ORDER_STATUS.COMPLETED && (
                     <>
                       <button 
                         className="btn btn-sm btn-accent"

@@ -100,7 +100,7 @@ export default function OrderProductForm({ productId }) {
       console.log('Order specifications (without files):', orderSpecifications);
       console.log('Files to upload:', files);
 
-      // Create order with files
+      // Create order with files - status will default to "Menunggu Harga dari Admin" on backend
       const orderResponse = await orderApi.create({
         userId: user.sub,
         productId: parseInt(productId),
@@ -113,7 +113,7 @@ export default function OrderProductForm({ productId }) {
       
       // Reset the form and navigate to orders page
       resetOrder();
-      toast.success('Order placed successfully! Waiting for admin to set the price.');
+      toast.success('Pesanan berhasil dibuat! Menunggu admin menetapkan harga.');
       
       // Delay navigation to show toast
       setTimeout(() => {
@@ -154,7 +154,7 @@ export default function OrderProductForm({ productId }) {
           <div className="modal-box">
             <h3 className="font-bold text-lg mb-4">Konfirmasi Pesanan</h3>
             <p className="py-4">
-              Harga akan ditentukan oleh admin setelah pesanan dibuat. Pesanan dapat dibatalkan setelah harga ditentukan!
+              Harga akan ditentukan oleh admin setelah pesanan dibuat. Anda dapat menyetujui atau membatalkan pesanan setelah harga ditetapkan.
             </p>
             <div className="modal-action">
               <button 
